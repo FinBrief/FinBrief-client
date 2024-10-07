@@ -1,4 +1,4 @@
-import UserFeed from "@/components/userFeed";
+import UserFeed from "@/components/feed/userFeed";
 
 export default function Feed() {
   return (

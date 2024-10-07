@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { SettingsIcon } from "lucide-react";
 
 export default function UserFeed() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
-      <aside className="w-64 p-4 border-r">
+      <aside className="w-64 p-4 pt-6 border-r">
         <div className="space-y-2">
-          <div className="font-bold text-xl">My feed</div>
+          <div className="font-bold text-3xl">FinBrief</div>
           <div className="space-y-2">
             <div>Custom feed</div>
             <div className="font-bold">Discover</div>
@@ -32,12 +33,16 @@ export default function UserFeed() {
       </aside>
       <main className="flex-1 p-6">
         <header className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold">Feed settings</h1>
+          <div className="flex items-center space-x-2">
+            <h1 className="text-2xl font-bold">My feed</h1>
+            <Button variant="ghost">
+              <SettingsIcon />
+            </Button>
           </div>
           <div className="flex items-center space-x-4">
-            <Input type="search" placeholder="Search" className="w-64" />
-            <Button variant="default">New post</Button>
+            <div>
+              <Button variant="default">Profile</Button>
+            </div>
             <ModeToggle />
           </div>
         </header>
@@ -55,10 +60,8 @@ export default function UserFeed() {
                 <div>TLDR</div>
                 <div>TLDR</div>
               </div>
-              <div className="flex items-center space-x-4 text-sm">
-                <div>1.1K</div>
-                <div>22</div>
-                <div>8</div>
+              <div className="flex items-center text-sm pt-2">
+                <div>Read later</div>
               </div>
             </Card>
           ))}
