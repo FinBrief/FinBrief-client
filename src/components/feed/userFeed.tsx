@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge"
 import { SettingsIcon } from "lucide-react";
 
 export default function UserFeed() {
+
+
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <aside className="w-64 p-4 pt-6 border-r">
