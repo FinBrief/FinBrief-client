@@ -1,3 +1,5 @@
+// schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,9 +10,46 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid()) @map("id")
-  email     String   @unique
-  firstName String
-  lastName  String
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid()) @map("id")
+  supabaseId  String    @unique
+  email       String    @unique
+  username    String    @unique
+  createdAt   DateTime  @default(now())
+  
+  // Relations
+  tags        Tag[]     @relation("UserTags", references: [id], through: UserTag)
+  savedPosts  Post[]    @relation("UserSavedPosts", references: [id], through: UserSavedPost)
+}
+
+model Tag {
+  id    String  @id @default(uuid())
+  name  String  @unique
+}
+
+model Post {
+  id          String    @id @default(uuid())
+  title       String
+  content     String
+  link        String
+  pubDate     DateTime 
+}
+
+model UserTag {
+  userId String
+  tagId  String
+
+  user   User @relation("UserTags", fields: [userId], references: [id])
+  tag    Tag  @relation(fields: [tagId], references: [id])
+
+  @@id([userId, tagId])
+}
+
+model UserSavedPost {
+  userId String
+  postId String
+
+  user   User @relation("UserSavedPosts", fields: [userId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
+
+  @@id([userId, postId])
 }
