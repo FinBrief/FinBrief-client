@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "@/actions/userAuth";
 import { ModeToggle } from "@/components/theme/mode-toggle"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -42,6 +43,7 @@ export default function UserFeed() {
           <div className="flex items-center space-x-4">
             <div>
               <Button variant="default">Profile</Button>
+              <Button onClick={() => signOut()}>SignOut</Button>
             </div>
             <ModeToggle />
           </div>

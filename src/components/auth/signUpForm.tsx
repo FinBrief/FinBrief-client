@@ -10,44 +10,41 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { signup } from "@/actions/userAuth"
 
 export default function LoginForm() {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto w-full max-w-[380px]">
       <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
+        <CardTitle className="text-xl">Sign up to FinBrief</CardTitle>
         <CardDescription>
           Enter your information to create an account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <form action={signup} className="grid gap-2">
             <div className="grid gap-2">
-              <Label htmlFor="first-name">First name</Label>
-              <Input id="first-name" placeholder="Max" required />
+              <Label htmlFor="username">Username</Label>
+              <Input id="username" name="username" required />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="last-name">Last name</Label>
-              <Input id="last-name" placeholder="Robinson" required />
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                required
+              />
             </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" />
-          </div>
-          <Button type="submit" className="w-full">
-            Create an account
-          </Button>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" />
+            </div>
+            <Button type="submit" className="w-full">
+              Create an account
+            </Button>
+          </form>
           <div className="w-full text-center text-sm">
             Or
           </div>
@@ -57,8 +54,8 @@ export default function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
-          <Link href="#" className="underline">
-            Sign in
+          <Link href="/login" className="underline">
+            Log in
           </Link>
         </div>
       </CardContent>
