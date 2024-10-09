@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { signOut } from "@/actions/userAuth";
 import { ModeToggle } from "@/components/theme/mode-toggle"
+import { ProfileSheet } from "./profileSheet";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -14,8 +16,10 @@ export default function UserFeed() {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <aside className="w-64 p-4 pt-6 border-r">
-        <div className="space-y-2">
-          <div className="font-bold text-3xl">FinBrief</div>
+        <div className="space-y-4">
+          <Link href="/">
+            <div className="font-bold text-3xl pb-6">FinBrief</div>
+          </Link>
           <div className="space-y-2">
             <div>Custom feed</div>
             <div className="font-bold">Discover</div>
@@ -23,15 +27,9 @@ export default function UserFeed() {
             <div>Discussions</div>
             <div>Tags</div>
             <div>Sources</div>
-            <div>Leaderboard</div>
-            <div className="font-bold">Activity</div>
             <div>Submit a link</div>
             <div>Bookmarks</div>
-            <div>History</div>
           </div>
-          <div className="font-bold">Docs</div>
-          <div>Changelog</div>
-          <div>Feedback</div>
         </div>
       </aside>
       <main className="flex-1 p-6">
@@ -43,10 +41,10 @@ export default function UserFeed() {
             </Button>
           </div>
           <div className="flex items-center space-x-4">
-            <div>
-              <Button variant="default">Profile</Button>
-              <Button onClick={() => signOut()}>SignOut</Button>
-            </div>
+       
+              <ProfileSheet />
+              <Button variant="secondary" onClick={() => signOut()}>SignOut</Button>
+    
             <ModeToggle />
           </div>
         </header>
