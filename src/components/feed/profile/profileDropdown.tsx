@@ -18,7 +18,7 @@ export function ProfileDropdown() {
     <Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex justify-center items-center h-9 w-9 overflow-hidden rounded-full bg-gray-700 text-white hover:bg-gray-800 cursor-pointer">
+          <div className="flex justify-center items-center h-9 w-9 overflow-hidden rounded-lg dark:bg-gray-700 bg-gray-600 text-white dark:hover:bg-gray-800 hover:bg-gray-700 cursor-pointer">
             NG
           </div>
         </DropdownMenuTrigger>
