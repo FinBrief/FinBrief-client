@@ -11,40 +11,25 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { CircleUser, Menu, Package2, Search } from "lucide-react"
 
-export function ProfileSheet() {
+export function InfoSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Profile</Button>
+        <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
       </SheetTrigger>
-      <SheetContent >
+      <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Your profile</SheetTitle>
           <SheetDescription>
             View or make changes to your profile here.
           </SheetDescription>
         </SheetHeader>
-        <div className="grid gap-4 py-10">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-left">
-              Username
-            </Label>
-            <Input id="username" value="" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-left">
-              Email
-            </Label>
-            <Input id="email" value="" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="password" className="text-left">
-              Password
-            </Label>
-            <Input id="password" value="" className="col-span-3" />
-          </div>
-        </div>
+       
         <SheetFooter>
           <SheetClose asChild>
             <Button type="submit">Save changes</Button>

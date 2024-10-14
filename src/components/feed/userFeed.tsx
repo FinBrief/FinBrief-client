@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { signOut } from "@/actions/userAuth";
 import { ModeToggle } from "@/components/theme/mode-toggle"
-import { ProfileDropdown } from "./profile/profileDropdown";
-import { ProfileSheet } from "./infoSheet";
+import { ProfileDropdown } from "./profileDropdown";
+import { InfoSheet } from "./infoSheet";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -17,10 +16,11 @@ export default function UserFeed() {
   return (
     <div className="flex flex-col min-h-screen w-full">
       <nav className="flex w-full items-center justify-between px-4 p-2 border-b">
+        <InfoSheet />
         <Link href="/">
           <div className="font-bold text-3xl">FinBrief.</div>
         </Link>
-        <div className="flex items-center gap-2 bg-gray-200 dark:bg-black space-x-4 p-1 rounded-lg">
+        <div className="flex items-center md:gap-2 bg-gray-200 dark:bg-black space-x-4 p-1 rounded-lg">
           <ProfileDropdown />
           <ModeToggle />
         </div>
@@ -51,6 +51,9 @@ export default function UserFeed() {
           </div>
         </aside>
         <main className="flex-1 p-4 px-4 mt-2">
+          <div className="pb-6 md:hidden">
+            <Button variant="secondary">Edit feed</Button>
+          </div>
           <div className="grid grid-cols-1 gap-2 min-[550px]:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, index) => (
               <Card key={index} className="p-4 bg-white">

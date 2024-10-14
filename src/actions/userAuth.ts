@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/utils/db/prisma'
-import { loginSchema, signupSchema } from '@/validation/auth'
+import { loginSchema, signupSchema } from '@/validation/zodAuth'
 
 // Login
 export async function login(formData: FormData) {
@@ -61,17 +61,21 @@ export async function signup(formData: FormData) {
     redirect('/error')
   }
 
-  const supabaseId = signUpData.user?.id
+  if (signUpData.user) {
+    const supabaseId = signUpData.user.id
 
-  const addUserDB = await prisma.user.create({
-    data: {
-      supabaseId: supabaseId,
-      email: data.email,
-      username: data.options.data.username
-    }
-  })
-
-  console.log('User added to database:', addUserDB)
+    const addUserDB = await prisma.user.create({
+      data: {
+        supabaseId: supabaseId,
+        email: data.email,
+        username: data.options.data.username
+      }
+    })
+    console.log('User added to database:', addUserDB)
+  } else {
+    console.log('No user data received from Supabase')
+    redirect('/error')
+  }
 
   revalidatePath('/', 'layout')
   redirect('/feed')

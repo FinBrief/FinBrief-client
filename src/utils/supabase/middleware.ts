@@ -1,6 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import prisma from '@/utils/prisma'
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -34,17 +33,15 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    // No user, redirect to login
+  //console.log(user)
+  /*
+  if(!user &&request.nextUrl.pathname.startsWith('/profile')) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
+    console.log("zz")
     return NextResponse.redirect(url)
   }
-
+  
   if (user) {
     // Fetching user from db
     const appUser = await prisma.user.findUnique({
@@ -58,7 +55,6 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url)
     }
 
-    /*
     if (appUser.role === 'admin' && request.nextUrl.pathname.startsWith('/admin')) {
       // Allow access to admin routes
       return supabaseResponse
@@ -70,8 +66,8 @@ export async function updateSession(request: NextRequest) {
       url.pathname = '/'
       return NextResponse.redirect(url)
     }
-    */
-  }
+    
+  }*/
 
   return supabaseResponse
 }
