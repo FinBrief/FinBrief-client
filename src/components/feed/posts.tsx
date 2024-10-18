@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import PostDialog from './postDialog';
 
 interface Tag {
   id: string;
@@ -14,7 +15,7 @@ interface Source {
   name: string;
 }
 
-interface Post {
+export interface Post {
   id: string;
   title: string;
   summary: string;
@@ -51,6 +52,8 @@ export default function Posts() {
   return (
     <div className="grid grid-cols-1 gap-2 min-[550px]:grid-cols-2 lg:grid-cols-3">
     {data && data.map((post) => (
+      <PostDialog post={post} >
+
       <Card key={post.id} className="p-4 bg-white">
         <div className="flex items-center justify-between mb-2">
           <div className="font-bold">{post.title}</div>
@@ -62,7 +65,7 @@ export default function Posts() {
         </div>
         <div className="text-sm text-muted-foreground mb-2">
           {/*Add relative time*/}
-          {post.pubDate}
+          {post.pubDate.slice(0, 10)}
         </div>
         <div className="flex flex-col space-y-2">
           {post.summary}
@@ -73,6 +76,7 @@ export default function Posts() {
           </a>
         </div>
       </Card>
+      </PostDialog>
     ))}
     </div>
   )
