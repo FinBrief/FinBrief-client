@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { relativeTime } from '@/lib/relativeTime';
+import Loader from '../profile/loader';
 import PostDialog from './postDialog';
 
 interface Tag {
@@ -42,42 +44,40 @@ export default function Posts() {
   })
 
   if (isLoading) return (
-    <div>Loading...</div>
+    <Loader />
   )
 
   if (error) return (
-    <div>Error: {error.message}</div>
+    <div className="flex justify-center items-center h-screen">Error: {error.message}</div>
   )
 
   return (
     <div className="grid grid-cols-1 gap-2 min-[550px]:grid-cols-2 lg:grid-cols-3">
-    {data && data.map((post) => (
-      <PostDialog post={post} >
-
-      <Card key={post.id} className="p-4 bg-white">
-        <div className="flex items-center justify-between mb-2">
-          <div className="font-bold">{post.title}</div>
-          <div>
-            {post.tags && post.tags.map((tag) => (
-              <Badge key={tag.id} variant="secondary">{tag.name}</Badge>
-            ))}
-          </div>
-        </div>
-        <div className="text-sm text-muted-foreground mb-2">
-          {/*Add relative time*/}
-          {post.pubDate.slice(0, 10)}
-        </div>
-        <div className="flex flex-col space-y-2">
-          {post.summary}
-        </div>
-        <div className="flex items-center text-sm pt-2">
-          <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-            Read more
-          </a>
-        </div>
-      </Card>
-      </PostDialog>
-    ))}
+      {data && data.map((post) => (
+        <PostDialog key={post.id} post={post}>
+         <Card  className="p-4 bg-white">
+            <div className="flex items-center justify-between mb-2">
+              <div className="font-bold">{post.title}</div>
+              <div className="flex flex-wrap gap-2">
+                {post.tags && post.tags.map((tag) => (
+                  <Badge key={tag.id} variant="secondary">{tag.name}</Badge>
+                ))}
+              </div>
+            </div>
+            <div className="text-sm text-muted-foreground mb-2">
+              {relativeTime(post.pubDate)}
+            </div>
+            <div className="flex flex-col space-y-2">
+              {post.summary}
+            </div>
+            <div className="flex items-center text-sm pt-2">
+              <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                Read more
+              </a>
+            </div>   
+          </Card>
+        </PostDialog>
+      ))}
     </div>
   )
 }

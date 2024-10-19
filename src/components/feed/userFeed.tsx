@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Link from "next/link";
 import Posts from "./posts";
@@ -55,9 +54,7 @@ export default function UserFeed() {
             <div className="pb-6 md:hidden">
               <Button variant="secondary">Edit feed</Button>
             </div>
-            <Suspense fallback={<div>Loading...</div>}>             
-              <Posts />          
-            </Suspense> 
+            <Posts />          
           </main>
         </div>
       </div>

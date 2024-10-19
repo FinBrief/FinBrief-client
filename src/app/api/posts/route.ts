@@ -6,8 +6,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const posts = await prisma.post.findMany({
       orderBy: {
         pubDate: 'desc'
+      },
+      include: {
+        tags: {
+          select: {
+            name: true
+          }
+        }
       }
     })
+    //console.log(posts)
     return NextResponse.json(posts)  
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })

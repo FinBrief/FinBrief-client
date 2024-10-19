@@ -1,42 +1,39 @@
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Badge } from "@/components/ui/badge"
+import { relativeTime } from "@/lib/relativeTime"
 import { Post } from "./posts"
 
-
 export default function PostDialog({children,post}:{children:React.ReactNode,post: Post}) { 
-    return (
-        <Dialog>
-        <DialogTrigger asChild className="hover:cursor-pointer">
-            {/* <button>{children}</button> */}
-            {children}
-        </DialogTrigger>
-        <DialogContent className="w-1/2 h-1/2">
-            {/* <DialogHeader>
-            <DialogTitle className="text-2xl">Dialog Title</DialogTitle>
-            </DialogHeader> */}
-            <DialogDescription className="grid">
-                    <h3 className="justify-self-start">{post.title}</h3>
-                    <div>{post.pubDate.slice(0,10)}</div>
-
-                    <div>
-                        {post.summary}
-                    </div>
-                    <div>
-                        <button onClick={()=>{
-                            window.open(post.link)
-                        }}>
-                        LINK
-                        </button>
-                        </div>
-                    <div>tags</div>
-            </DialogDescription>
-        </DialogContent>
-        </Dialog>
-    )
+  return (
+    <Dialog>
+      <DialogTrigger asChild className="hover:cursor-pointer">
+        {children}
+      </DialogTrigger>
+      <DialogContent className="flex flex-col space-y-1 w-1/2 h-1/2">
+        <DialogHeader>
+          <DialogTitle>
+            <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+              {post.title}
+            </a>
+          </DialogTitle>
+          <DialogDescription>
+            {relativeTime(post.pubDate)}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-wrap gap-2">
+          {post.tags && post.tags.map((tag) => (
+            <Badge variant="secondary" key={tag.id}>{tag.name}</Badge>
+          ))}
+        </div>
+        <div> {post.summary} </div>
+      </DialogContent>
+    </Dialog>
+  )
 }
