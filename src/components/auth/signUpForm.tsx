@@ -38,7 +38,19 @@ export default function LoginForm() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">
+                <div className="flex gap-2">
+
+                <div>
+                Password
+                </div>
+
+                <div className=" text-slate-400">
+
+                (minimum 8 chracters)
+                </div>
+                </div>
+                </Label>
               <Input id="password" name="password" type="password" />
             </div>
             <Button type="submit" className="w-full">
