@@ -3,6 +3,7 @@ import { Manrope } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "./globals.css";
+import { ReactQueryProvider } from "@/lib/provider";
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -36,7 +37,8 @@ export default function RootLayout({
         )}
         suppressHydrationWarning={true}
       >
-        <ThemeProvider
+        <ReactQueryProvider>
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
@@ -44,6 +46,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

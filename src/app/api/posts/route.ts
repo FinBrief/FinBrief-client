@@ -8,11 +8,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
         pubDate: 'desc'
       },
       include: {
-        tags: {
-          select: {
-            name: true
-          }
-        }
+        tags: true,
+        source: true
       }
     })
     //console.log(posts)

@@ -55,17 +55,18 @@ export default function Posts() {
     <div className="grid grid-cols-1 gap-2 min-[550px]:grid-cols-2 lg:grid-cols-3">
       {data && data.map((post) => (
         <PostDialog key={post.id} post={post}>
-         <Card  className="p-4 bg-white">
+         <Card className="p-4 bg-white">
             <div className="flex items-center justify-between mb-2">
               <div className="font-bold">{post.title}</div>
               <div className="flex flex-wrap gap-2">
                 {post.tags && post.tags.map((tag) => (
-                  <Badge key={tag.id} variant="secondary">{tag.name}</Badge>
+                  <Badge key={tag.name} variant="secondary">#{tag.name}</Badge>
                 ))}
               </div>
             </div>
             <div className="text-sm text-muted-foreground mb-2">
               {relativeTime(post.pubDate)}
+              <span className="text-muted-foreground"> • {post.source.name}</span>
             </div>
             <div className="flex flex-col space-y-2">
               {post.summary}

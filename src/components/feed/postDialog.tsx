@@ -29,7 +29,7 @@ export default function PostDialog({children,post}:{children:React.ReactNode,pos
         </DialogHeader>
         <div className="flex flex-wrap gap-2">
           {post.tags && post.tags.map((tag) => (
-            <Badge variant="secondary" key={tag.id}>{tag.name}</Badge>
+            <Badge variant="secondary" key={tag.name}>#{tag.name}</Badge>
           ))}
         </div>
         <div> {post.summary} </div>
