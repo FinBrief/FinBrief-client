@@ -5,8 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/theme/mode-toggle"
 import { ArrowLeft } from "lucide-react"
-import Loader from "./loader"
-import { Emblema_One } from "next/font/google"
+import { ProfileLoader as Loader } from "@/components/loaders"
 
 const ProfileSettings = lazy(() => import("./profileSettings"))
 const ProfileTags = lazy(() => import("./profileTags"))
