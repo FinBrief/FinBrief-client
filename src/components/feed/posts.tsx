@@ -79,7 +79,7 @@ export default function Posts() {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-2 min-[550px]:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 min-[550px]:grid-cols-2 lg:grid-cols-3">
         {data && data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
@@ -98,7 +98,7 @@ export default function Posts() {
                     <span className="text-muted-foreground"> • {post.source.name}</span>
                   </div>
                   <div className="flex flex-col space-y-2">
-                    {post.summary}
+                    {post.summary.slice(0,150)}
                   </div>
                   <div className="flex items-center text-sm pt-2">
                     <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">
