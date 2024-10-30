@@ -84,7 +84,7 @@ export default function Posts() {
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
               <PostDialog key={post.id} post={post}>
-                <Card className="p-4 bg-white">
+                <Card className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="font-bold">{post.title}</div>
                     <div className="flex flex-wrap gap-2">

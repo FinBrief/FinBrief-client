@@ -4,11 +4,12 @@
 
 @layer base {
   :root {
-    --background: 36 71% 99%;
+    --background: 36, 71%, 99%;
     --foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
+    --secondary-card: 36, 71%, 99%;
     --secondary-foreground: 240 5.9% 10%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
@@ -64,4 +65,12 @@
   }
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
 
