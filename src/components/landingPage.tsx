@@ -9,6 +9,7 @@ import { ModeToggle } from "./theme/mode-toggle";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
+import { StarsBackground } from "./ui/stars";
 
 const words = [
   {
@@ -34,7 +35,8 @@ export default function LandingPage() {
         <ModeToggle />
       </header>
       <div className="flex flex-col justify-center items-center">
-        <section className="flex flex-col h-[calc(100vh-220px)] items-center justify-center space-y-10">
+        <section className="flex flex-col h-[calc(100vh-300px)] w-full items-center justify-center space-y-10">
+          <StarsBackground />
           <h1 className="text-5xl md:text-6xl font-bold">
             FinBrief.
           </h1>
@@ -48,8 +50,14 @@ export default function LandingPage() {
           </div>
         </section>   
         <StickyScroll />
+        <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
+          <p className="text-neutral-800 dark:text-neutral-300 text-sm md:text-xl max-w-2xl leading-relaxed">
+            Stay ahead in the financial world with personalized news delivery, AI-powered summaries, 
+            and a clutter-free reading experience designed for you.
+          </p>
+        </div>
         <Link href="/feed">
-          <Button size="lg" variant="ghost" className="text-xl mt-10">Get started</Button>
+          <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
         </Link>
         <Footer />
       </div>

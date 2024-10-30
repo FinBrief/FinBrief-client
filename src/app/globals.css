@@ -65,12 +65,13 @@
   }
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.dot-bg {
+  --dot-bg: hsl(240 5% 6%);
+  --dot-color: hsl(60 5% 85%);
+  --dot-size: 1px;
+  --dot-space: 22px;
+	background:
+		linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+		linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+		var(--dot-color);
 }
-
-.no-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-}
-
