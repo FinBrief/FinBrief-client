@@ -25,7 +25,7 @@ const words = [
 export default function LandingPage() {
   return (
     <>
-      <header className="absolute top-5 right-5 flex items-center gap-2">
+      <header className="absolute top-5 right-5 flex items-center gap-2 z-10">
         <Link href="/signup">
           <Button> Sign up </Button>
         </Link>

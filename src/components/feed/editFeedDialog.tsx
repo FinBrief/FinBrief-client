@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { SettingsIcon, CheckIcon } from "lucide-react"
 import { Tag } from "@/lib/types"
+import { setUserTags } from "@/actions/setUserTags"
 
 interface EditFeedDialogProps {
   tags: Tag[];
@@ -22,10 +23,6 @@ interface EditFeedDialogProps {
 }
 
 export function EditFeedDialog({tags, selectedTags, onTagClick}: EditFeedDialogProps) {
-  const handleSave = () => {
-    console.log("Save clicked");
-  }
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -58,7 +55,7 @@ export function EditFeedDialog({tags, selectedTags, onTagClick}: EditFeedDialogP
           })}
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleSave}>Save</Button>
+          <Button type="submit" onClick={() => setUserTags(selectedTags)}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

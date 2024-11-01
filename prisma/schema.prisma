@@ -13,7 +13,7 @@ model User {
   email           String          @unique
   username        String          @unique
   savedPosts      Post[]
-  perfferedTags   Tag[]
+  userTags   Tag[]
 }
 
 model Tag {
