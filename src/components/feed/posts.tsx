@@ -4,10 +4,19 @@ import { useEffect, Fragment } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { 
+  Card,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+  CardDescription,
+  CardContent
+} from "@/components/ui/card"
+import { Bookmark, ExternalLink } from 'lucide-react';
 import { relativeTime } from '@/lib/relativeTime';
 import { PostLoader as Loader } from '@/components/loaders';
 import PostDialog from './postDialog';
+import { Button } from '../ui/button';
 import { Post } from '@/lib/types';
 
 export default function Posts() {
@@ -57,36 +66,46 @@ export default function Posts() {
         {data && data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
-              <PostDialog key={post.id} post={post}>
-                <Card className="p-4">
-                  <div className="flex items-center justify-between mb-2">
+              <Card key={post.id} className="p-4 group">
+                <PostDialog post={post}>
+                  <div className="flex flex-col gap-2">
                     <div className="font-bold">{post.title}</div>
                     <div className="flex flex-wrap gap-2">
                       {post.tags && post.tags.map((tag) => (
                         <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
                       ))}
                     </div>
+                    <div>
+                      {post.summary.length > 250 
+                        ? `${post.summary.slice(0,300)}...` 
+                        : post.summary}
+                    </div>  
                   </div>
-                  <div className="text-sm text-muted-foreground mb-2">
+                </PostDialog>
+                <div className="flex justify-between items-center text-sm mt-2">
+                  <div className="flex gap-1 text-muted-foreground">
                     {relativeTime(post.pubDate)}
-                    <span className="text-muted-foreground"> • {post.source.name}</span>
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    {post.summary.slice(0,150)}
-                  </div>
-                  <div className="flex items-center text-sm pt-2">
+                    <span> • </span>
                     <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                      Read more
+                      <div className="flex items-center gap-1">
+                        {post.source.name} 
+                        <ExternalLink className="h-3 w-3" />
+                      </div>
                     </a>
-                  </div>   
-                </Card>
-              </PostDialog>
+                  </div>
+                  <div className="flex items-center gap-2 group-hover:opacity-100 opacity-0 transition-opacity duration-250">
+                    <Button variant="ghost" size="icon">
+                      <Bookmark className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </Card>
             ))}
           </Fragment>
         ))}
       </div>
       <div ref={ref} className="flex justify-center items-center p-4">
-          {isFetchingNextPage ? 'Loading more posts...' : hasNextPage ? 'Scroll to load more' : 'No more posts'}
+        {isFetchingNextPage ? 'Loading more posts...' : hasNextPage ? 'Scroll to load more' : 'No more posts'}
       </div>
     </> 
   )

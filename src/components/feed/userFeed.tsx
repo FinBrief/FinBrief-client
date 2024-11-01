@@ -75,7 +75,7 @@ export default function UserFeed() {
             </nav>
           </div>
         </aside>
-        <main className="flex-1 p-4 overflow-y-auto px-4 mt-16">
+        <main className="flex-1 p-4 overflow-y-auto px-4 mt-16 mx-8">
           <div className="pb-6 md:hidden">
             <Button variant="secondary">Edit feed</Button>
           </div>
