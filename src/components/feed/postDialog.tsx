@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { relativeTime } from "@/lib/relativeTime"
-import { Post } from "./posts"
+import { Post } from "@/lib/types"
 
 export default function PostDialog({children,post}:{children:React.ReactNode,post: Post}) { 
   return (

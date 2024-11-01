@@ -3,7 +3,7 @@ import { Manrope } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "./globals.css";
-import { ReactQueryProvider } from "@/lib/provider";
+import { ReactQueryProvider } from "@/lib/queryProvider";
 
 const fontHeading = Manrope({
   subsets: ['latin'],

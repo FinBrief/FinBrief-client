@@ -8,33 +8,7 @@ import { Card } from "@/components/ui/card";
 import { relativeTime } from '@/lib/relativeTime';
 import { PostLoader as Loader } from '@/components/loaders';
 import PostDialog from './postDialog';
-
-interface Tag {
-  id: string;
-  name: string;
-}
-
-interface Source {
-  id: string;
-  name: string;
-}
-
-export interface Post {
-  id: string;
-  title: string;
-  summary: string;
-  link: string;
-  pubDate: string;
-  tags: Tag[];
-  users: { id: string; username: string }[];
-  sourceId: string;
-  source: Source;
-}
-
-interface ApiResponse {
-  posts: Post[];
-  nextCursor: string | null;
-}
+import { Post } from '@/lib/types';
 
 export default function Posts() {
   const fetchPosts = async ({ pageParam = undefined }) => {
@@ -89,7 +63,7 @@ export default function Posts() {
                     <div className="font-bold">{post.title}</div>
                     <div className="flex flex-wrap gap-2">
                       {post.tags && post.tags.map((tag) => (
-                        <Badge key={tag.name} variant="secondary">#{tag.name}</Badge>
+                        <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
                       ))}
                     </div>
                   </div>
