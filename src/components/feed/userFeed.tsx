@@ -9,6 +9,7 @@ import { InfoSheet } from "./leftPopout";
 import { Button } from "@/components/ui/button"
 import { EditFeedDialog } from "./editFeedDialog";
 import { Tag } from "@/lib/types";
+import ChatBot from "../chatBot";
 
 const tags = [
   {id: "1", name: "Top News"},
@@ -81,6 +82,7 @@ export default function UserFeed() {
           </div>
           <Posts />     
         </main>
+        <ChatBot/>
       </div>
     </>
   );
