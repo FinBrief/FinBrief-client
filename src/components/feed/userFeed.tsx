@@ -41,7 +41,7 @@ export default function UserFeed() {
 
   return (
     <>
-      <div className="pb-6">
+      <div className="pt-2 pb-4">
         <EditFeedDialog tags={tags} selectedTags={selectedTags} onTagClick={onTagClick} />
       </div>
       <Posts bookmarkIds={bookmarkIds} />     

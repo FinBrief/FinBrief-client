@@ -10,6 +10,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
 import { StarsBackground } from "./ui/stars";
+import SignOutButton from "@/components/auth/signOutButton";
 
 const words = [
   {
@@ -22,16 +23,27 @@ const words = [
   }
 ];
 
-export default function LandingPage() {
+export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
   return (
     <>
-      <header className="absolute top-5 right-5 flex items-center gap-2 z-10">
-        <Link href="/signup">
-          <Button> Sign up </Button>
-        </Link>
-        <Link href="/login">
-          <Button variant="outline"> Log in </Button> 
-        </Link>
+      <header className="absolute top-5 right-5 flex items-center gap-4 z-10">
+        {loggedIn ? (
+          <div className="flex items-center gap-2">
+            <Link href="/feed/custom">
+              <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
+            </Link>
+            <SignOutButton />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link href="/signup">
+              <Button> Sign up </Button>
+            </Link>
+            <Link href="/login">
+              <Button variant="outline"> Log in </Button> 
+            </Link>
+          </div>
+        )}
         <ModeToggle />
       </header>
       <div className="flex flex-col justify-center items-center">

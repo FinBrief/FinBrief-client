@@ -48,7 +48,7 @@ export function EditFeedDialog({tags, selectedTags, onTagClick}: EditFeedDialogP
                 className="h-10 w-fit cursor-pointer"
                 onClick={() => onTagClick(tag)}
               >
-                {isSelected && <CheckIcon className="w-4 h-4 mr-2" />}
+                {isSelected && <CheckIcon className="w-4 h-4 mr-2 animate-in" />}
                 <div>{tag.name}</div>
               </Badge>
             );

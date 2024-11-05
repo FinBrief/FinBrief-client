@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/utils/db/prisma'
 import { loginSchema, signupSchema } from '@/lib/zodAuth'
+import { toast } from 'sonner'
 
 // Login
 export async function login(formData: FormData) {
@@ -29,7 +30,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath('/', 'layout')
-  redirect('/feed')
+  redirect('/feed/custom')
 }
 
 
@@ -78,7 +79,7 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath('/', 'layout')
-  redirect('/feed')
+  redirect('/feed/custom')
 }
 
 // Signout
@@ -87,14 +88,13 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    redirect('/error')
+    console.log('Supabase Signout Error:', error.message)
+    return false;
   }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  return true;
 }
-
-// Get user
 
 // Delete user
 

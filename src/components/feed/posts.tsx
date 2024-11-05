@@ -13,10 +13,13 @@ import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/types';
 import { toast } from 'sonner';
 import { setUserBookmark, removeUserBookmark } from '@/actions/bookmark';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefined }) {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [isPending, setIsPending] = useState(false);
+
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (bookmarkIds) {
@@ -44,6 +47,7 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
     const res = await setUserBookmark(postId);
     if (res.success) {
       toast.success('Post bookmarked');
+      //queryClient.invalidateQueries({ queryKey: ['posts'] });
     } else {
       toast.error('Failed to bookmark post');
       //remove bookmark
@@ -55,6 +59,7 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
     const res = await removeUserBookmark(postId);
     if (res.success) {
       toast.success('Post removed from bookmarks');
+      //queryClient.invalidateQueries({ queryKey: ['posts'] });
     } else {
       toast.error('Failed to remove post from bookmarks');
       //add bookmark
@@ -107,7 +112,7 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
         {data && data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
-              <Card key={post.id} className="p-4 group">
+              <Card key={post.id} className="flex flex-col justify-between p-4 group">
                 <PostDialog post={post}>
                   <div className="flex flex-col gap-2">
                     <div className="font-bold">{post.title}</div>
