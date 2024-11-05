@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "./globals.css";
 import { ReactQueryProvider } from "@/lib/queryProvider";
+import { Toaster } from 'sonner';
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -47,6 +48,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </ReactQueryProvider>
+        <Toaster richColors={true} duration={2000} />
       </body>
     </html>
   );

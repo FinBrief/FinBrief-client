@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Posts from "./posts";
 import { ModeToggle } from "@/components/theme/mode-toggle"
@@ -8,8 +8,10 @@ import { ProfileDropdown } from "./profileDropdown";
 import { InfoSheet } from "./leftPopout";
 import { Button } from "@/components/ui/button"
 import { EditFeedDialog } from "./editFeedDialog";
-import { Tag } from "@/lib/types";
+import { Post, Tag } from "@/lib/types";
 import ChatBot from "../chatBot";
+import { fetchUserBookmarks } from "@/actions/bookmark";
+import { useBookmark } from "@/hooks/useBookmark";
 
 const tags = [
   {id: "1", name: "Top News"},
@@ -33,6 +35,9 @@ const tags = [
 
 export default function UserFeed() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
+
+  const { data: bookmarkIds } = useBookmark();
 
   const onTagClick = (tag: Tag) => {
     setSelectedTags(prev => 
@@ -76,13 +81,14 @@ export default function UserFeed() {
             </nav>
           </div>
         </aside>
-        <main className="flex-1 p-4 overflow-y-auto px-4 mt-16 mx-8">
+        <main className="flex-1 p-4 overflow-y-auto px-4 mt-16 md:mx-8">
           <div className="pb-6 md:hidden">
             <Button variant="secondary">Edit feed</Button>
           </div>
-          <Posts />     
+          <Posts bookmarkIds={bookmarkIds} />     
         </main>
         <ChatBot/>
+       
       </div>
     </>
   );

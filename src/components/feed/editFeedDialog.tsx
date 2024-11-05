@@ -26,7 +26,7 @@ export function EditFeedDialog({tags, selectedTags, onTagClick}: EditFeedDialogP
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" aria-label="Edit Feed" className="px-2 font-bold text-lg "> 
+        <Button variant="secondary" aria-label="Edit Feed" className="px-2 font-bold text-lg "> 
           Edit feed 
           <SettingsIcon className="ml-2 w-5 h-5" /> 
         </Button>

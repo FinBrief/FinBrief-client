@@ -17,8 +17,23 @@ export async function getUser() {
     username: data.user?.user_metadata.username
   }
 
-  console.log(userData)
-  console.log("............")
+  return userData
+}
 
-  return data.user
+export async function getUserSession() {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getSession()
+
+  if (error) {
+    console.log('Supabase getUserSession Error:', error.message)
+    return null
+  }
+
+  const userData = {
+    id: data.session?.user.id,
+    email: data.session?.user.email,
+    username: data.session?.user.user_metadata.username
+  }
+
+  return userData
 }
