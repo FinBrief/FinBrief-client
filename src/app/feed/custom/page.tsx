@@ -1,6 +1,6 @@
 import UserFeed from "@/components/feed/userFeed";
 
-export default function Feed() {
+export default function CustomFeedPage() {
   return (
     <>
       <UserFeed />

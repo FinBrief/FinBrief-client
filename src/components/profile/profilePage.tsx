@@ -11,7 +11,7 @@ const ProfileSettings = lazy(() => import("./profileSettings"))
 const ProfileTags = lazy(() => import("./profileTags"))
 const ProfileBookmarks = lazy(() => import("./bookmarks"))
 
-export default function ProfilePage({ params: { email, username } }: { params: { email?: string, username?: string } }) 
+export default function ProfilePage({ params: { id, email, username } }: { params: { id?: string, email?: string, username?: string } }) 
 {
   const [activeTab, setActiveTab] = useState("profile")
 
@@ -63,7 +63,7 @@ export default function ProfilePage({ params: { email, username } }: { params: {
           <Suspense fallback={<Loader />}>
             {activeTab === "profile" && <ProfileSettings email={email || "email"} username={username || "username"} />}
             {activeTab === "tags" && <ProfileTags />}
-            {activeTab === "bookmarks" && <ProfileBookmarks />}
+            {activeTab === "bookmarks" && <ProfileBookmarks id={id || ""} />}
           </Suspense>
         </div>
       </main>

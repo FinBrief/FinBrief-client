@@ -56,7 +56,7 @@ export default function LandingPage() {
             and a clutter-free reading experience designed for you.
           </p>
         </div>
-        <Link href="/feed">
+        <Link href="/feed/custom">
           <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
         </Link>
         <Footer />

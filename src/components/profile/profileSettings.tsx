@@ -18,7 +18,7 @@ export default function ProfileSettings({ email, username }: { email: string, us
           <div className="text-2xl">
             Hello, {username}
           </div>
-          <div className="text-xl">
+          <div className="text-xl text-muted-foreground">
             {email}
           </div>   
         </div>

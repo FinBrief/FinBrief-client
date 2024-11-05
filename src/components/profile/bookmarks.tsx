@@ -1,7 +1,7 @@
 
 
 
-export default function ProfileBookmarks() {
+export default function ProfileBookmarks({ id }: { id: string }) {
   return (
     <div>
       <h1>ProfileBookmarks</h1>
