@@ -1,23 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/theme/mode-toggle"
 import { ProfileDropdown } from "@/components/feed/profileDropdown";
-import { InfoSheet } from "@/components/feed/leftPopout";
-import { Button } from "@/components/ui/button"
 import ChatBot from "@/components/chatBot";
+import LeftSheet from "@/components/feed/leftSheet";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/feed/app-sidebar";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function FeedLayout({
   children, 
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname(); 
+  //Fix margins, making the links into buttons makes the margins weird
   return (
     <>
-      <header className="fixed top-0 bottom-[calc(100vh-theme(spacing.16))] flex w-full items-center justify-between px-4 p-2 bg-background border-b">
-        <InfoSheet />
+    <header className="fixed top-0 bottom-[calc(100vh-theme(spacing.16))] flex w-full items-center justify-between px-4 p-2 bg-background border-b">
         <Link href="/">
           <div className="font-bold text-3xl">FinBrief.</div>
         </Link>
@@ -28,22 +30,34 @@ export default function FeedLayout({
       </header>
       <div className="flex min-h-screen w-full">
         <aside className="sticky top-16 h-[calc(100vh-theme(spacing.16))] overflow-y-auto hidden md:block w-55 lg:w-64 p-4 pt-6 border-r">
-          <div className="flex flex-col h-full">
-            <nav>
-              <ul className="flex flex-col gap-2">
-                <li className={`hover:underline ${pathname === "/feed/all" ? "font-bold" : ""}`}><Link href="/feed/all">All posts</Link></li>
-                <li className={`hover:underline ${pathname === "/feed/custom" ? "font-bold" : ""}`}><Link href="/feed/custom">Custom feed</Link></li>
-                <li className="hover:underline">Tags</li>
-                <li className="hover:underline">Sources</li>
-                <li className="hover:underline"><Link href="/profile">Bookmarks</Link></li>
-              </ul>
-            </nav>
-            <div className="flex-1"></div>
-            <nav className="flex flex-col gap-2 mb-2">
-              <div>Submit a source</div>
-              <div>Feedback</div>
-            </nav>
+        <div className="flex flex-col h-full">
+        <nav>
+          <div className="flex flex-col gap-2 mr-2">
+           
+              <Button variant="ghost" className={`justify-start w-full ${pathname === "/feed/all" ? "font-bold bg-gray-100 dark:bg-zinc-800" : ""}`}>
+              <Link href="/feed/all">
+                All posts
+              </Link>
+            </Button>
+            <Link href="/feed/custom">
+              <Button variant="ghost" className={`justify-start w-full ${pathname === "/feed/custom" ? "font-bold bg-gray-100 dark:bg-zinc-800" : ""}`}>
+                Custom feed
+              </Button>    
+            </Link>
+            <Link href="/profile">
+              <Button variant="ghost" className="justify-start w-full">
+                Bookmarks
+              </Button>
+            </Link>
           </div>
+          </nav>
+        <div className="flex-1"></div>
+        <nav className="flex flex-col gap-2 mb-2 px-1">
+          <div>Sources</div>
+          <div>Submit a source</div>
+          <div>Feedback</div>
+        </nav>
+      </div>
         </aside>
         <main className="flex-1 p-4 overflow-y-auto px-4 mt-16 md:mx-8">
           {children}
@@ -53,3 +67,4 @@ export default function FeedLayout({
     </>
   )
 }
+

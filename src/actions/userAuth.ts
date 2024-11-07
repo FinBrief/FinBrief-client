@@ -7,10 +7,11 @@ import prisma from '@/utils/db/prisma'
 import { loginSchema, signupSchema } from '@/lib/zodAuth'
 import { toast } from 'sonner'
 
+
+const supabase = createClient()
+
 // Login
 export async function login(formData: FormData) {
-  const supabase = createClient()
-
   const data = {
     email: formData.get('email')?.toString() || '',
     password: formData.get('password')?.toString() || '',
@@ -36,8 +37,6 @@ export async function login(formData: FormData) {
 
 // Signup
 export async function signup(formData: FormData) {
-  const supabase = createClient()
-
   const data = {
     email: formData.get('email')?.toString() || '',
     password: formData.get('password')?.toString() || '',
@@ -84,7 +83,6 @@ export async function signup(formData: FormData) {
 
 // Signout
 export async function signOut() {
-  const supabase = createClient()
   const { error } = await supabase.auth.signOut()
 
   if (error) {
@@ -96,6 +94,22 @@ export async function signOut() {
   return true;
 }
 
-// Delete user
+// Randomly works then doesnt....change to clerk maybe
+export async function signInWithGoogle() {
+  console.log('Signing in with Google')
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `http://localhost:3000/auth/callback`,
+    },
+  })
 
-// Update user
+  if (error) {
+    console.log('Supabase Signin with Google Error:', error.message)
+    redirect('/error')
+  }
+
+  if (data.url) {
+    redirect(data.url)
+  }
+}

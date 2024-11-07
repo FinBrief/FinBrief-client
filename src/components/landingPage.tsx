@@ -1,32 +1,41 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { IBM_Plex_Serif } from "next/font/google";
 import Link from "next/link";
-import { signOut } from "@/actions/userAuth";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import { ModeToggle } from "./theme/mode-toggle";
-import { SparklesCore } from "@/components/ui/sparkles";
 import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
 import { StarsBackground } from "./ui/stars";
 import SignOutButton from "@/components/auth/signOutButton";
 
+const ibmSerif = IBM_Plex_Serif({
+  subsets: ['latin'],
+  weight: ['400']
+});
+
 const words = [
   {
     text: "Personalized Financial News,",
-    className: "text-muted-foreground dark:text-muted-foreground",
+    className: `text-muted-foreground dark:text-muted-foreground ${ibmSerif.className}`,
   },
   {
     text: "Simplified Summaries",
-    className: "text-blue-500 dark:text-blue-450",
+    className: `text-blue-500 dark:text-blue-450 ${ibmSerif.className} font-bold`,
   }
 ];
+
+
 
 export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
   return (
     <>
-      <header className="absolute top-5 right-5 flex items-center gap-4 z-10">
+      <div className="fixed top-0 left-0 w-full min-h-screen z-0">
+        <StarsBackground />
+      </div>
+      <header className="absolute top-5 right-5 flex items-center gap-4 bg-black">
         {loggedIn ? (
           <div className="flex items-center gap-2">
             <Link href="/feed/custom">
@@ -36,11 +45,11 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
           </div>
         ) : (
           <div className="flex items-center gap-2">
+            <Link href="/login">
+              <Button variant="secondary"> Log in </Button> 
+            </Link>
             <Link href="/signup">
               <Button> Sign up </Button>
-            </Link>
-            <Link href="/login">
-              <Button variant="outline"> Log in </Button> 
             </Link>
           </div>
         )}
@@ -48,8 +57,7 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
       </header>
       <div className="flex flex-col justify-center items-center">
         <section className="flex flex-col h-[calc(100vh-300px)] w-full items-center justify-center space-y-10">
-          <StarsBackground />
-          <h1 className="text-5xl md:text-6xl font-bold">
+          <h1 className={`text-5xl md:text-6xl font-bold ${ibmSerif.className}`}>
             FinBrief.
           </h1>
           <div className="hidden min-[600px]:block">
@@ -63,14 +71,16 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
         </section>   
         <StickyScroll />
         <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
-          <p className="text-neutral-800 dark:text-neutral-300 text-sm md:text-xl max-w-2xl leading-relaxed">
+          <p className={`text-neutral-800 dark:text-neutral-300 text-sm md:text-xl max-w-2xl leading-relaxed text-center ${ibmSerif.className}`}>
             Stay ahead in the financial world with personalized news delivery, AI-powered summaries, 
             and a clutter-free reading experience designed for you.
           </p>
         </div>
-        <Link href="/feed/custom">
-          <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
-        </Link>
+        <div className="z-10">
+          <Link href="/feed/custom">
+            <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
+          </Link>
+        </div>
         <Footer />
       </div>
     </>

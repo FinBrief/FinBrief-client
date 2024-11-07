@@ -1,10 +1,13 @@
+'use client'
+
 import Image from "next/image";
-import React from "react";
+import { IBM_Plex_Serif } from "next/font/google";
 import { Timeline } from "@/components/ui/timeline";
-import marketpic from "@/assets/marketindexpic.jpg";
-import summariseImage from "@/assets/summariseIMG.png.jpeg"
-import personalizationIMG from "@/assets/personalizationIMG.jpg"
-import savedPostsIMG from "@/assets/savedposts.jpg"
+
+const ibmSerif = IBM_Plex_Serif({
+  subsets: ['latin'],
+  weight: ['400']
+});
 
 export function StickyScroll() {
   const data = [
@@ -12,11 +15,11 @@ export function StickyScroll() {
       title: "Latest news",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8">
-            Find hot poping finance news from all over the world
+          <p className={`text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8 ${ibmSerif.className}`}>
+            Discover up-to-the-minute financial news from around the globe, tailored to keep you informed on the latest shifts and developments in markets, industries, and economies.
           </p>
-          <div className="grid grid-cols-2 gap-4">
-           <Image src={marketpic} alt="placeholder" width={500} height={500} />
+          <div>
+           <Image src='/images/latest-news.png' alt="Latest news" width={500} height={500} className="rounded-lg"/>
           </div>
         </div>
       ),
@@ -25,12 +28,12 @@ export function StickyScroll() {
       title: "Quick Summaries",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8">
-              Get the most crisp summaries of articles powered by cutting edge AI models
+          <p className={`text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8 ${ibmSerif.className}`}>
+            FinBrief&apos;s AI-powered summarization technology pulls the essential points from lengthy articles, delivering them in a compact, easily digestible format.
           </p>
           
-          <div className="grid grid-cols-2 gap-4">
-            <Image src={summariseImage} alt="placeholder" width={500} height={500} /> 
+          <div>
+            <Image src='/placeholder.png' alt="placeholder" width={500} height={500} /> 
           </div>
         </div>
       ),
@@ -39,28 +42,11 @@ export function StickyScroll() {
       title: "Follow topics you care about",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-4">
-            Follow only what you want to follow
+          <p className={`text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8 ${ibmSerif.className}`}>
+            Tailor your feed to match your interests. Whether you&apos;re into crypto, real estate, or global trade, FinBrief lets you follow the topics you&apos;re most passionate about, delivering a highly personalized experience.
           </p>
-          <div className="mb-8">
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-              ✅ Card grid component
-            </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-              ✅ Startup template Aceternity
-            </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-              ✅ Random file upload lol
-            </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-              ✅ Himesh Reshammiya Music CD
-            </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
-              ✅ Salman Bhai Fan Club registrations open
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Image src={personalizationIMG} alt="placeholder" width={500} height={500} />
+          <div>
+            <Image src='/placeholder.png' alt="placeholder" width={500} height={500} />
           </div>
         </div>
       ),
@@ -69,23 +55,18 @@ export function StickyScroll() {
       title: "Save posts",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            I usually run out of copy, but when I see content this big, I try to
-            integrate lorem ipsum.
+          <p className={`text-neutral-800 dark:text-neutral-200 text-xs md:text-lg font-normal mb-8 ${ibmSerif.className}`}>
+            Bookmark articles or summaries to revisit later. Save key insights or trending stories with a single click and keep them organized for easy access anytime.
           </p>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-            Lorem ipsum is for people who are too lazy to write copy. But we are
-            not. Here are some more example of beautiful designs I built.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <Image src={savedPostsIMG} alt="placeholder" width={500} height={500} />
+          <div>
+            <Image src='/images/bookmark.png' alt="bookmark posts" width={500} height={500} className="rounded-lg"/>
           </div>
         </div>
       ),
     },
   ];
   return (
-    <div className="w-full">
+    <div className='w-full'>
       <Timeline data={data} />
     </div>
   );

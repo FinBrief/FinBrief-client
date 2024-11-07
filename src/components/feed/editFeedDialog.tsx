@@ -31,7 +31,7 @@ export function EditFeedDialog({tags, selectedTags, onTagClick}: EditFeedDialogP
           <SettingsIcon className="ml-2 w-5 h-5" /> 
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle>Edit your feed</DialogTitle>
           <DialogDescription>

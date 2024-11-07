@@ -10,12 +10,10 @@ async function getBookmarks(): Promise<string[]> {
 }
 
 export const useBookmark = () => {
-  console.log("Fetching bookmarks");
   return useQuery({
     queryKey: ["bookmarks"],
     queryFn: getBookmarks,
     refetchOnWindowFocus: false,
-    staleTime: Infinity,
-    retry: false,
+    staleTime: Infinity
   });
 }

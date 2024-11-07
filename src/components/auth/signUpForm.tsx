@@ -1,5 +1,6 @@
-import Link from "next/link"
+'use client'
 
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,7 +11,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { signup } from "@/actions/userAuth"
+import { signInWithGoogle, signup } from "@/actions/userAuth"
 
 export default function LoginForm() {
   return (
@@ -60,7 +61,7 @@ export default function LoginForm() {
           <div className="w-full text-center text-sm">
             Or
           </div>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={() => signInWithGoogle()}>
             Sign up with Google
           </Button>
         </div>

@@ -34,7 +34,7 @@ export default function RootLayout({
        className={cn(
         'antialiased',
         fontHeading.variable,
-          fontBody.variable
+        fontBody.variable
         )}
         suppressHydrationWarning={true}
       >

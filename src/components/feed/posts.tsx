@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, Fragment, useState } from 'react';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useState, useEffect, useRef, Fragment } from 'react';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card"
@@ -12,57 +12,36 @@ import PostDialog from './postDialog';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/types';
 import { toast } from 'sonner';
-import { setUserBookmark, removeUserBookmark } from '@/actions/bookmark';
-import { useQueryClient } from '@tanstack/react-query';
+import { removeUserBookmark, setUserBookmark } from '@/actions/bookmark';
 
 export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefined }) {
-  const [bookmarks, setBookmarks] = useState<string[]>([]);
-  const [isPending, setIsPending] = useState(false);
-
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (bookmarkIds) {
-      setBookmarks(bookmarkIds);
-    }
-  }, [bookmarkIds]);
-
-  /*const { mutate: setBookmark } = useMutation({
-    mutationFn: (postId: string) => setUserBookmark(postId),
-    onMutate: () => {
-      setIsPending(true);
-    },
-    onSuccess: () => {
-      setIsPending(false);
-      toast.success('Post bookmarked');
-    }
-  });
-
-  const { mutate: removeBookmark } = useMutation({
-    mutationFn: (postId: string) => removeUserBookmark(postId),
-  });*/
-
   const handleSetBookmark = async (postId: string) => {
-    setBookmarks([...bookmarks, postId]);
     const res = await setUserBookmark(postId);
+  
     if (res.success) {
       toast.success('Post bookmarked');
-      //queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.setQueryData(
+        ['bookmarks'], 
+        (oldData: string[]) => [...oldData, postId]
+      );
     } else {
       toast.error('Failed to bookmark post');
-      //remove bookmark
     }
   }
 
   const handleRemoveBookmark = async (postId: string) => {
-    setBookmarks(bookmarks.filter((id) => id !== postId));
     const res = await removeUserBookmark(postId);
+  
     if (res.success) {
       toast.success('Post removed from bookmarks');
-      //queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.setQueryData(
+        ['bookmarks'], 
+        (oldData: string[]) => oldData.filter((id) => id !== postId)
+      );
     } else {
       toast.error('Failed to remove post from bookmarks');
-      //add bookmark
     }
   }
 
@@ -116,7 +95,7 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
                 <PostDialog post={post}>
                   <div className="flex flex-col gap-2">
                     <div className="font-bold">{post.title}</div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                       {post.tags && post.tags.map((tag) => (
                         <Badge key={tag.id} variant="secondary">#{tag.name}</Badge>
                       ))}
@@ -139,15 +118,15 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
                       </div>
                     </a>
                   </div>                 
-                  {bookmarks && bookmarks.includes(post.id) ? (
-                      <div className="flex items-center gap-2">
-                      <Button variant="ghost" size="icon" disabled={isPending} onClick={() => handleRemoveBookmark(post.id)}>
+                  {bookmarkIds && bookmarkIds.includes(post.id) ? (
+                    <div className="flex items-center gap-2">
+                      <Button variant="ghost" size="icon" onClick={() => handleRemoveBookmark(post.id)}>
                         <Bookmark className="h-4 w-4 text-blue-500 fill-blue-500" />
                       </Button>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 group-hover:opacity-100 opacity-0 transition-opacity duration-250">
-                      <Button variant="ghost" size="icon" disabled={isPending} onClick={() => handleSetBookmark(post.id)}>
+                      <Button variant="ghost" size="icon"onClick={() => handleSetBookmark(post.id)}>
                         <Bookmark className="h-4 w-4" />
                       </Button>
                     </div>
