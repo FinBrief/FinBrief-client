@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { chatBotResponse } from '@/actions/chatBotAction';
+import { toast } from 'sonner';
 
 interface Message {
   text: string;
@@ -16,22 +17,42 @@ const ChatBot = () => {
     { text: "Hi! How can I help you today?", isBot: true }
   ]);
   const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastMessageTime, setLastMessageTime] = useState(0);
+  const coolDown = 10 * 1000; // 10 secs
 
   const handleSend = async (e: any) => {
     e.preventDefault();
     const question = input;
     setInput('');
 
+    const now = Date.now();
+    const timeSinceLastMessage = now - lastMessageTime;
+    if (timeSinceLastMessage < coolDown) {
+      const remainingTime = Math.ceil((coolDown - timeSinceLastMessage) / 1000);
+      setMessages(prev => [...prev, { text: `Please wait ${remainingTime} seconds before sending another message.`, isBot: true }]);
+      return;
+    }
+
     if (!question.trim()) return;
     //console.log(input);
     // Add user message
+    setIsLoading(true);
+    setLastMessageTime(now);
+
     setMessages(prev => [...prev, { text: input, isBot: false }]);
     
-    const {response,error} = await chatBotResponse(question);
+    const {response, error} = await chatBotResponse(question);
+
     if(!error){
         setMessages(prev => [...prev, { text: response, isBot: true }]);
+    } else {
+      toast.message('Error', {
+        description: error,
+        duration: 3000
+      });
     }
-
+    setIsLoading(false);
   };
 
   return (
@@ -86,10 +107,16 @@ const ChatBot = () => {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type a message..."
+                placeholder={isLoading ? "Please wait..." : "Type a message..."}
                 className="flex-1"
+                disabled={isLoading}
               />
-              <Button type="submit" size="icon" className="bg-blue-600 hover:bg-blue-700">
+              <Button 
+                type="submit" 
+                size="icon" 
+                className="bg-blue-600 hover:bg-blue-700"
+                disabled={isLoading}
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>

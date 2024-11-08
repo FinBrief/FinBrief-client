@@ -21,6 +21,6 @@ export function relativeTime(date: string) {
       `${Math.round(diffTime / 1440)} days ago`;
   }
   else {
-    return postDate.toLocaleDateString();
+    return postDate.toDateString().split(' ').slice(1).join(' ');
   }
 }
