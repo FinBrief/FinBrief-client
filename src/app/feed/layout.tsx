@@ -2,24 +2,46 @@
 
 import Link from "next/link";
 import { ModeToggle } from "@/components/theme/mode-toggle"
-import { ProfileDropdown } from "@/components/feed/profileDropdown";
 import ChatBot from "@/components/chatBot";
-import LeftSheet from "@/components/feed/leftSheet";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/feed/app-sidebar";
+import { EditFeedDialog } from "@/components/feed/editFeedDialog";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
-export default function FeedLayout({
-  children, 
-}: {
-  children: React.ReactNode
-}) {
+export default function FeedLayout({children}: {children: React.ReactNode}) {
   const pathname = usePathname(); 
-  //Fix margins, making the links into buttons makes the margins weird
+
   return (
-    <>
-    <header className="fixed top-0 bottom-[calc(100vh-theme(spacing.16))] flex w-full items-center justify-between px-4 p-2 bg-background border-b">
+    <SidebarProvider>
+      <AppSidebar/>
+      <SidebarInset>
+        <header className="flex justify-between sticky top-0 bg-background h-16 shrink-0 items-center gap-2 border-b px-4">   
+          <div className="flex items-center gap-3">
+            <SidebarTrigger/> 
+            {pathname === "/feed/custom" ? (
+              <div className="flex items-center">
+                <EditFeedDialog />
+              </div>
+            ) : (
+              <div className="flex items-center">
+                All posts
+              </div>
+            )}
+          </div>
+          <ModeToggle/>
+        </header>
+        <main className="flex items-center justify-center overflow-y-auto mx-6 mt-6">
+          {children}
+        </main>
+      </SidebarInset>
+      <ChatBot/>
+    </SidebarProvider> 
+  )
+}
+
+/*
+<header className="fixed top-0 bottom-[calc(100vh-theme(spacing.16))] flex w-full items-center justify-between px-4 p-2 bg-background border-b">
         <Link href="/">
           <div className="font-bold text-3xl">FinBrief.</div>
         </Link>
@@ -59,12 +81,6 @@ export default function FeedLayout({
         </nav>
       </div>
         </aside>
-        <main className="flex-1 p-4 overflow-y-auto px-4 mt-16 md:mx-8">
-          {children}
-        </main>
-        <ChatBot/>
-      </div>
-    </>
-  )
-}
 
+
+*/

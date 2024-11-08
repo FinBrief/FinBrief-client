@@ -60,7 +60,7 @@
     --input: 240 6% 20%;
     --ring: 240 5% 90%;
     --radius: 0.5rem;
-    --sidebar-background: 240 5.9% 10%;
+    --sidebar-background: 240 5% 6%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -79,15 +79,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.dot-bg {
-  --dot-bg: hsl(240 5% 6%);
-  --dot-color: hsl(60 5% 85%);
-  --dot-size: 1px;
-  --dot-space: 22px;
-	background:
-		linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-		linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-		var(--dot-color);
 }

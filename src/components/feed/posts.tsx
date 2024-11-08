@@ -13,9 +13,11 @@ import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/types';
 import { toast } from 'sonner';
 import { removeUserBookmark, setUserBookmark } from '@/actions/bookmark';
+import { useSidebar } from '@/components/ui/sidebar';
 
 export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefined }) {
   const queryClient = useQueryClient();
+  const {state} = useSidebar();
 
   const handleSetBookmark = async (postId: string) => {
     const res = await setUserBookmark(postId);
@@ -86,8 +88,8 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
   )
 
   return (
-    <>
-      <div className="grid grid-cols-1 gap-6 min-[550px]:grid-cols-2 lg:grid-cols-3">
+    <div className="max-w-7xl">
+      <div className={`grid grid-cols-1 gap-6 min-[550px]:grid-cols-2 lg:grid-cols-3 w-full`}>
         {data && data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
@@ -125,7 +127,7 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 group-hover:opacity-100 opacity-0 transition-opacity duration-250">
+                    <div className="flex items-center gap-2 lg:group-hover:opacity-100 lg:opacity-0 lg:transition-opacity duration-250">
                       <Button variant="ghost" size="icon"onClick={() => handleSetBookmark(post.id)}>
                         <Bookmark className="h-4 w-4" />
                       </Button>
@@ -140,6 +142,6 @@ export default function Posts({ bookmarkIds }: { bookmarkIds: string[] | undefin
       <div ref={ref} className="flex justify-center items-center p-4">
         {isFetchingNextPage ? 'Loading more posts...' : hasNextPage ? 'Scroll to load more' : 'No more posts'}
       </div>
-    </> 
+    </div> 
   )
 }

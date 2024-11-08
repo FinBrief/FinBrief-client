@@ -33,46 +33,11 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  //console.log(user)
-  /*
-  if(!user &&request.nextUrl.pathname.startsWith('/profile')) {
+  if(!user && (request.nextUrl.pathname.startsWith('/feed/'))) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
-    console.log("zz")
     return NextResponse.redirect(url)
   }
-  
-  if (user) {
-    // Fetching user from db
-    const appUser = await prisma.user.findUnique({
-      where: { id: user.id },
-    })
-
-    if (!appUser) {
-      // User not found, redirect to login
-      const url = request.nextUrl.clone()
-      url.pathname = '/login'
-      return NextResponse.redirect(url)
-    }
-
-    if (appUser.role === 'admin' && request.nextUrl.pathname.startsWith('/admin')) {
-      // Allow access to admin routes
-      return supabaseResponse
-    }
-
-    if (appUser.role !== 'admin' && request.nextUrl.pathname.startsWith('/admin')) {
-      // Redirect non-admin users attempting to access admin routes
-      const url = request.nextUrl.clone()
-      url.pathname = '/'
-      return NextResponse.redirect(url)
-    }
-    
-  }*/
 
   return supabaseResponse
 }
-
-/*
-Caching User Data: To reduce database calls, consider caching user data in memory or using a caching layer like Redis.
-Batching Requests: If multiple middleware functions require similar data, batch requests to optimize performance.
-*/
