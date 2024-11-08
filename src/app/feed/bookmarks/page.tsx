@@ -1,10 +1,9 @@
 "use client";
 
-import Posts from "@/components/feed/posts";
 import { useBookmark } from "@/hooks/useBookmark";
+import Posts from "@/components/feed/posts";
 
-export default function AllFeed() {
-
+export default function BookmarksPage() {
   const { data: bookmarkIds } = useBookmark();
 
   return (

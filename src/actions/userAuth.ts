@@ -5,8 +5,6 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/utils/db/prisma'
 import { loginSchema, signupSchema } from '@/lib/zodAuth'
-import { toast } from 'sonner'
-
 
 const supabase = createClient()
 
@@ -27,11 +25,11 @@ export async function login(formData: FormData) {
 
   if (error) {
     console.log('Supabase Login Error:', error.message)
-    redirect('/error')
+    return { error: error.message };
   }
 
   revalidatePath('/', 'layout')
-  redirect('/feed/custom')
+  return { error: null };
 }
 
 
@@ -51,14 +49,14 @@ export async function signup(formData: FormData) {
 
   if (!parseResult.success) {
     console.log('Signup Validation Error:', parseResult.error.message)
-    redirect('/error')
+    return { error: parseResult.error.message };
   }
 
   const { data: signUpData, error: signUpError } = await supabase.auth.signUp(data)
 
   if (signUpError) {
     console.log('Supabase Signup Error:', signUpError.message)
-    redirect('/error')
+    return { error: signUpError.message };
   }
 
   if (signUpData.user) {
@@ -74,11 +72,11 @@ export async function signup(formData: FormData) {
     console.log('User added to database:', addUserDB)
   } else {
     console.log('No user data received from Supabase')
-    redirect('/error')
+    return { error: 'No user data received from Supabase' };
   }
 
   revalidatePath('/', 'layout')
-  redirect('/feed/custom')
+  return { error: null };
 }
 
 // Signout

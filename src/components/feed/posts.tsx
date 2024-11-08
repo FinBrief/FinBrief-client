@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef, Fragment } from 'react';
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card"
 import { ExternalLink, Bookmark } from 'lucide-react';
 import { relativeTime } from '@/lib/relativeTime';
 import { PostLoader as Loader } from '@/components/loaders';
-import PostDialog from './postDialog';
+import PostDialog from '@/components/feed/postDialog';
 import { Button } from '@/components/ui/button';
 import { Post } from '@/lib/types';
 import { toast } from 'sonner';

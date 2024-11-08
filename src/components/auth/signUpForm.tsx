@@ -12,8 +12,22 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signInWithGoogle, signup } from "@/actions/userAuth"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
-export default function LoginForm() {
+export default function SignUpForm() {
+  const router = useRouter();
+
+  async function handleSignup(formData: FormData) {
+    const result = await signup(formData);
+    if (result.error) {
+      toast.error(result.error);
+    } else {
+      toast.success('Signup successful');
+      router.push('/feed/all');
+    }
+  }
+
   return (
     <Card className="mx-auto w-full max-w-[380px]">
       <CardHeader>
@@ -24,7 +38,7 @@ export default function LoginForm() {
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
-          <form action={signup} className="grid gap-2">
+          <form action={handleSignup} className="grid gap-2">
             <div className="grid gap-2">
               <Label htmlFor="username">Username</Label>
               <Input id="username" name="username" required />
@@ -39,20 +53,11 @@ export default function LoginForm() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">
-                <div className="flex gap-2">
-
-                <div>
-                Password
-                </div>
-
-                <div className=" text-slate-400">
-
-                (minimum 8 chracters)
-                </div>
-                </div>
-                </Label>
+              <Label htmlFor="password" >Password</Label>
               <Input id="password" name="password" type="password" />
+              <span className="text-sm text-slate-400 mb-1">
+                (minimum 8 characters)
+              </span>
             </div>
             <Button type="submit" className="w-full">
               Create an account
