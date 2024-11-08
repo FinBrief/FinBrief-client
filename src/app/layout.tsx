@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import "./globals.css";
 import { ReactQueryProvider } from "@/lib/queryProvider";
+import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from 'sonner';
 
 const fontHeading = Manrope({
@@ -49,6 +50,7 @@ export default function RootLayout({
           </ThemeProvider>
         </ReactQueryProvider>
         <Toaster richColors={true} duration={2000} />
+        <Analytics />
       </body>
     </html>
   );
