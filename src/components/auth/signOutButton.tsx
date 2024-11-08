@@ -18,7 +18,6 @@ export default function SignOutButton() {
     } else {
       toast.success("Signed out");
     }
-    //redirect('/');
   }
 
   return (

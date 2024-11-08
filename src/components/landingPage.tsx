@@ -27,15 +27,13 @@ const words = [
   }
 ];
 
-
-
 export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
   return (
     <>
       <div className="fixed top-0 left-0 w-full min-h-screen z-0">
         <StarsBackground />
       </div>
-      <header className="absolute top-5 right-5 flex items-center gap-4 bg-black">
+      <header className="absolute top-5 right-5 flex items-center gap-4">
         {loggedIn ? (
           <div className="flex items-center gap-2">
             <Link href="/feed/custom">

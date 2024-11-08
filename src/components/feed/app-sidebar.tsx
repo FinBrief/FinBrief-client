@@ -23,8 +23,10 @@ import {
   } from "@/components/ui/dropdown-menu"
 import { ChevronsUpDown } from "lucide-react"
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { signOut } from "@/actions/userAuth";
+import { toast } from "sonner";
 
 const feedItems = [
   { name: "All posts", href: "/feed/all" },
@@ -34,12 +36,25 @@ const feedItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();   
-  //const user = useAuth();   
+  const { userData } = useAuth();   
+  const router = useRouter();
 
   const user = {
     data: {
-      username: "John Doe",
-      email: "john.doe@example.com"
+      username: userData?.username,
+      email: userData?.email
+    }
+  }
+
+  const handleSignOut = async () => {
+    toast.loading("Signing out...");
+    const success = await signOut();
+    toast.dismiss();
+    if (!success) {
+      toast.error("Error signing out");
+    } else {
+      router.push('/');
+      toast.success("Signed out");
     }
   }
 
@@ -84,14 +99,14 @@ export function AppSidebar() {
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
                     <div className="rounded-full w-9 h-9 flex items-center justify-center bg-gray-600 text-white">
-                      {user.data?.username[0].toUpperCase()}
+                      {userData?.username[0].toUpperCase()}
                     </div>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold">
-                        {user.data?.username || "User"}
+                        {userData?.username || "User"}
                       </span>
                       <span className="truncate text-xs">
-                        {user.data?.email || "email@example.com"}
+                        {userData?.email || "email@example.com"}
                       </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
@@ -122,7 +137,7 @@ export function AppSidebar() {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleSignOut()}>
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

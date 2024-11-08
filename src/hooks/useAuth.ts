@@ -37,5 +37,5 @@ export function useAuth() {
     fetchUser();
   }, []);
 
-  return { data: userData };
+  return { userData };
 }

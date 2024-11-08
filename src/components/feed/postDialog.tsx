@@ -7,11 +7,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { relativeTime } from "@/lib/relativeTime"
 import { Post } from "@/lib/types"
 import { ExternalLinkIcon } from "@radix-ui/react-icons"
+import { Bookmark } from "lucide-react"
 
-export default function PostDialog({children, post}:{children:React.ReactNode, post: Post}) { 
+export default function PostDialog({children, post, isBookmark, handleSetBookmark, handleRemoveBookmark}:{children:React.ReactNode, post: Post, isBookmark: boolean, handleSetBookmark: () => void, handleRemoveBookmark: () => void}) { 
   return (
     <Dialog>
       <DialogTrigger asChild className="hover:cursor-pointer">
@@ -34,12 +36,20 @@ export default function PostDialog({children, post}:{children:React.ReactNode, p
           <div>
             {post.summary}
           </div>
-          <div className="text-sm text-gray-400">
+          <div className="text-sm text-gray-400 flex justify-between items-center mt-2">
             <div>
               {relativeTime(post.pubDate)}
             </div>
             <div>
-              
+              {isBookmark ? (
+                <Button variant="outline" onClick={handleRemoveBookmark}>
+                  Remove <Bookmark className="h-4 w-4 ml-1 text-blue-500 fill-blue-500" />
+                </Button>
+              ) : (
+                <Button variant="outline" onClick={handleSetBookmark}>
+                  Add <Bookmark className="h-4 w-4 ml-1" />
+                </Button>
+              )}
             </div>
           </div>
         </div>

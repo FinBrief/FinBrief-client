@@ -1,13 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { ModeToggle } from "@/components/theme/mode-toggle"
 import ChatBot from "@/components/chatBot";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/feed/app-sidebar";
 import { EditFeedDialog } from "@/components/feed/editFeedDialog";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function FeedLayout({children}: {children: React.ReactNode}) {
   const pathname = usePathname(); 
@@ -16,7 +14,7 @@ export default function FeedLayout({children}: {children: React.ReactNode}) {
     <SidebarProvider>
       <AppSidebar/>
       <SidebarInset>
-        <header className="flex justify-between sticky top-0 bg-background h-16 shrink-0 items-center gap-2 border-b px-4">   
+        <header className="flex justify-between sticky bg-background top-0 h-16 shrink-0 items-center gap-2 border-b px-4">   
           <div className="flex items-center gap-3">
             <SidebarTrigger/> 
             {pathname === "/feed/custom" ? (
@@ -31,7 +29,7 @@ export default function FeedLayout({children}: {children: React.ReactNode}) {
           </div>
           <ModeToggle/>
         </header>
-        <main className="flex items-center justify-center overflow-y-auto mx-6 mt-6">
+        <main className="flex items-center justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-screen">
           {children}
         </main>
       </SidebarInset>
@@ -81,6 +79,4 @@ export default function FeedLayout({children}: {children: React.ReactNode}) {
         </nav>
       </div>
         </aside>
-
-
 */
