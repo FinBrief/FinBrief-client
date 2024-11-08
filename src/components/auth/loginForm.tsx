@@ -27,7 +27,7 @@ export default function LoginForm() {
       router.push('/feed/custom');
     }
   }
-  
+
   return (
     <Card className="mx-auto w-full max-w-[380px]">
       <CardHeader>
@@ -65,7 +65,7 @@ export default function LoginForm() {
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/signup" className="underline">
             Sign up
           </Link>

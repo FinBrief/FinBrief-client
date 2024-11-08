@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { signOut } from "@/actions/userAuth"
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
 
 export default function SignOutButton() {
   const [isLoading, setIsLoading] = useState(false);

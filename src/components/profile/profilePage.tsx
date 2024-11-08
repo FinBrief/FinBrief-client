@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense, lazy } from "react"
+import { useState, Suspense, lazy } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/theme/mode-toggle"

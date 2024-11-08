@@ -2,9 +2,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { setUserBookmark, removeUserBookmark } from "@/actions/bookmark";
 import { toast } from "sonner";
 
-const queryClient = useQueryClient();
-
 export const handleSetBookmarkx = async (postId: string) => {
+  const queryClient = useQueryClient();
+
   const res = await setUserBookmark(postId);
 
   if (res.success) {
@@ -20,6 +20,8 @@ export const handleSetBookmarkx = async (postId: string) => {
 
 
 export const handleRemoveBookmarkx = async (postId: string) => {
+  const queryClient = useQueryClient();
+  
   const res = await removeUserBookmark(postId);
 
   if (res.success) {
