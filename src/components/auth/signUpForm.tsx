@@ -23,8 +23,8 @@ export default function SignUpForm() {
     if (result.error) {
       toast.error(result.error);
     } else {
-      toast.success('Signup successful');
       router.push('/feed/all');
+      toast.success('Signup successful');
     }
   }
 
@@ -66,7 +66,12 @@ export default function SignUpForm() {
           <div className="w-full text-center text-sm">
             Or
           </div>
-          <Button variant="outline" className="w-full" onClick={() => signInWithGoogle()}>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signInWithGoogle()}
+            disabled={true}
+          >
             Sign up with Google
           </Button>
         </div>

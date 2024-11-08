@@ -54,7 +54,7 @@ export async function chatBotResponse(input : string): Promise<{response: string
   });
 
   if (!response.ok) {
-    return {response:"", error: "Error in response" };
+    return {response:"", error: response.statusText };
   }
   const data = await response.json();
 

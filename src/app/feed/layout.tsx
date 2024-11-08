@@ -7,8 +7,8 @@ import { AppSidebar } from "@/components/feed/app-sidebar";
 import { EditFeedDialog } from "@/components/feed/editFeedDialog";
 import { usePathname } from "next/navigation";
 
-export default function FeedLayout({children}: {children: React.ReactNode}) {
-  const pathname = usePathname(); 
+export default async function FeedLayout({children}: {children: React.ReactNode}) {
+  const pathname = usePathname();
 
   return (
     <SidebarProvider>

@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import prisma from '@/utils/db/prisma'
 import { loginSchema, signupSchema } from '@/lib/zodAuth'
+import { toast } from 'sonner'
 
 const supabase = createClient()
 
@@ -18,16 +19,28 @@ export async function login(formData: FormData) {
   const parseResult = loginSchema.safeParse(data)
 
   if (!parseResult.success) {
-    return { error: parseResult.error.message }
+    console.log('Login Validation Error:', parseResult.error.message)
+    //toast.error(parseResult.error.message)
+    return { error: parseResult.error.message };
   }
 
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
     console.log('Supabase Login Error:', error.message)
+    //toast.error(error.message)
     return { error: error.message };
   }
 
+  /*const { data: authState } = supabase.auth.onAuthStateChange((event, session) => {
+    console.log('Auth State Changed:', event, session)
+
+    if (event === 'SIGNED_IN') {
+      redirect('/feed/custom')
+    }
+  })
+
+  authState.subscription.unsubscribe();*/
   revalidatePath('/', 'layout')
   return { error: null };
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,16 @@ const ChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [lastMessageTime, setLastMessageTime] = useState(0);
   const coolDown = 10 * 1000; // 10 secs
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSend = async (e: any) => {
     e.preventDefault();
@@ -51,6 +61,7 @@ const ChatBot = () => {
         description: error,
         duration: 3000
       });
+      setMessages(prev => prev.slice(0, -1));
     }
     setIsLoading(false);
   };
@@ -67,14 +78,13 @@ const ChatBot = () => {
       )}
 
       {isOpen && (
-        <Card className="w-80 h-96 flex flex-col shadow-xl">
+        <Card className="w-full max-w-96 h-[30rem] flex flex-col shadow-xl">
           {/* Header */}
-          <div className="p-4 bg-blue-600 text-white rounded-t-lg flex justify-between items-center">
+          <div className="p-4 bg-blue-700 text-white rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat Support</h3>
             <Button 
               variant="ghost" 
               size="icon"
-              className="text-white hover:bg-blue-700"
               onClick={() => setIsOpen(false)}
             >
               <X className="h-5 w-5" />
@@ -99,6 +109,7 @@ const ChatBot = () => {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </CardContent>
 
           {/* Input */}

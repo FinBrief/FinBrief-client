@@ -36,17 +36,17 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
       <header className="absolute top-5 right-5 flex items-center gap-4">
         {loggedIn ? (
           <div className="flex items-center gap-2">
-            <Link href="/feed/custom">
+            <Link prefetch={false} href="/feed/custom">
               <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
             </Link>
             <SignOutButton />
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <Link href="/login">
+            <Link prefetch={false} href="/login">
               <Button variant="secondary"> Log in </Button> 
             </Link>
-            <Link href="/signup">
+            <Link prefetch={false} href="/signup">
               <Button> Sign up </Button>
             </Link>
           </div>
@@ -75,7 +75,7 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
           </p>
         </div>
         <div className="z-10">
-          <Link href="/feed/custom">
+          <Link prefetch={false} href="/feed/custom">
             <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
           </Link>
         </div>
