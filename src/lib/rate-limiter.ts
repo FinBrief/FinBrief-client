@@ -7,7 +7,7 @@ const cooldownPeriod = 10 * 1000; // 10 secs
 
 export async function checkRateLimit() {
   const user = await getUser();
-  const userId = user?.email || 'anonymous';
+  const userId = user || 'anonymous';
   
   const currentTime = Math.floor(Date.now());
   const lastRequestTime = rateLimitCache.get<number>(userId);

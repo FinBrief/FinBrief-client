@@ -9,7 +9,6 @@ import { ModeToggle } from "./theme/mode-toggle";
 import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
 import { StarsBackground } from "./ui/stars";
-import SignOutButton from "@/components/auth/signOutButton";
 import {
   SignInButton,
   SignedIn,
