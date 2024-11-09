@@ -6,9 +6,16 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/feed/app-sidebar";
 import { EditFeedDialog } from "@/components/feed/editFeedDialog";
 import { usePathname } from "next/navigation";
+import { checkUser } from "@/actions/checkUser";
+import { useEffect } from "react";
+import { UserButton } from "@clerk/nextjs";
 
 export default async function FeedLayout({children}: {children: React.ReactNode}) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <SidebarProvider>
@@ -31,7 +38,10 @@ export default async function FeedLayout({children}: {children: React.ReactNode}
               </div>
             )}
           </div>
-          <ModeToggle/>
+          <div className="flex items-center gap-4">
+            <UserButton />  
+            <ModeToggle/>
+          </div>
         </header>
         <main className="flex items-center justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-screen">
           {children}

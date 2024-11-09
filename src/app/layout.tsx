@@ -6,6 +6,8 @@ import "./globals.css";
 import { ReactQueryProvider } from "@/lib/queryProvider";
 import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from 'sonner';
+import { ClerkProvider } from '@clerk/nextjs'
+import { dark } from '@clerk/themes'
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -30,28 +32,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body
-       className={cn(
-        'antialiased',
-        fontHeading.variable,
-        fontBody.variable
-        )}
-        suppressHydrationWarning={true}
-      >
-        <ReactQueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </ReactQueryProvider>
-        <Toaster richColors={true} duration={2000} />
-        <Analytics />
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark
+      }}
+    >
+      <html lang="en" suppressHydrationWarning={true}>
+        <body
+        className={cn(
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable
+          )}
+          suppressHydrationWarning={true}
+        >
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
+          <Toaster richColors={true} duration={2000} />
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

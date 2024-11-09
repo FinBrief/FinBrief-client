@@ -9,8 +9,7 @@ import {
   SidebarMenuButton,
   SidebarGroupLabel,
   SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarRail
+  SidebarGroupContent
 } from "@/components/ui/sidebar"
 import {
     DropdownMenu,
@@ -23,10 +22,10 @@ import {
   } from "@/components/ui/dropdown-menu"
 import { ChevronsUpDown } from "lucide-react"
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
-import { signOut } from "@/actions/userAuth";
-import { toast } from "sonner";
+import { usePathname } from "next/navigation";
+import { useClerk } from '@clerk/nextjs'
+import { useUser } from "@clerk/nextjs";
+import { UserButton } from '@clerk/nextjs'
 
 const feedItems = [
   { name: "All posts", href: "/feed/all" },
@@ -36,26 +35,11 @@ const feedItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();   
-  const { userData } = useAuth();   
-  const router = useRouter();
+  const { isLoaded, isSignedIn, user } = useUser();
+  const { signOut } = useClerk()
 
-  const user = {
-    data: {
-      username: userData?.username,
-      email: userData?.email
-    }
-  }
-
-  const handleSignOut = async () => {
-    toast.loading("Signing out...");
-    const success = await signOut();
-    toast.dismiss();
-    if (!success) {
-      toast.error("Error signing out");
-    } else {
-      router.push('/');
-      toast.success("Signed out");
-    }
+  if (!isLoaded || !isSignedIn) {
+    return null;
   }
 
   return (
@@ -99,14 +83,14 @@ export function AppSidebar() {
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
                     <div className="rounded-full w-9 h-9 flex items-center justify-center bg-gray-600 text-white">
-                      {userData?.username[0].toUpperCase()}
+                      {user.username?.[0].toUpperCase() || "U"}
                     </div>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold">
-                        {userData?.username || "User"}
+                        {user.username || "User"}
                       </span>
                       <span className="truncate text-xs">
-                        {userData?.email || "email@example.com"}
+                        {user.emailAddresses[0].emailAddress || "email@example.com"}
                       </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
@@ -122,10 +106,10 @@ export function AppSidebar() {
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">                    
                       <div className="grid flex-1 text-left text-sm leading-tight gap-1">
                         <span className="truncate font-semibold">
-                          {user.data?.username || "User"}
+                          {user.username || "User"}
                         </span>
                         <span className="truncate text-xs">
-                          {user.data?.email || "email@example.com"}
+                          {user.emailAddresses[0].emailAddress || "email@example.com"}
                         </span>
                       </div>
                     </div>
@@ -137,7 +121,7 @@ export function AppSidebar() {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => handleSignOut()}>
+                  <DropdownMenuItem onClick={() => signOut({ redirectUrl: '/' })}>
                     Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>

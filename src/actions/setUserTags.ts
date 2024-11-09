@@ -13,7 +13,7 @@ export async function setUserTags(tags: Tag[]) {
 
   await prisma.user.update({
     where: { 
-      supabaseId: user.id 
+      supabaseId: user
     },
     data: { 
       perfferedTags: {

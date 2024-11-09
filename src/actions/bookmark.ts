@@ -1,10 +1,10 @@
 "use server"
 
-import { getUserSession } from "@/actions/getUser";
+import { getUser } from "@/actions/getUser";
 import prisma from "@/utils/db/prisma";
 
 export async function fetchUserBookmarks() {
-  const user = await getUserSession();
+  const user = await getUser();
 
   if (!user) {
     return { error: "User not found" };
@@ -13,7 +13,7 @@ export async function fetchUserBookmarks() {
   try {
     const bookmarks = await prisma.user.findUnique({
       where: { 
-        supabaseId: user.id 
+        supabaseId: user
       },
       select: {
         savedPosts: {
@@ -35,7 +35,7 @@ export async function fetchUserBookmarks() {
 }
 
 export async function setUserBookmark(postId: string) {
-  const user = await getUserSession();
+  const user = await getUser();
 
   if (!user) {
     return { error: "User not found" };
@@ -44,7 +44,7 @@ export async function setUserBookmark(postId: string) {
   try {
     await prisma.user.update({
       where: { 
-        supabaseId: user.id 
+        supabaseId: user 
       },
       data: { 
         savedPosts: {
@@ -62,7 +62,7 @@ export async function setUserBookmark(postId: string) {
 }
 
 export async function removeUserBookmark(postId: string) {
-  const user = await getUserSession();
+  const user = await getUser();
 
   if (!user) {
     return { error: "User not found" };
@@ -71,7 +71,7 @@ export async function removeUserBookmark(postId: string) {
   try {
     await prisma.user.update({
       where: { 
-        supabaseId: user.id 
+        supabaseId: user 
       },
       data: {
         savedPosts: {

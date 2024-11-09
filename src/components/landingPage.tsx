@@ -10,6 +10,13 @@ import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
 import { StarsBackground } from "./ui/stars";
 import SignOutButton from "@/components/auth/signOutButton";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignOutButton as ClerkSignOutButton
+} from '@clerk/nextjs'
 
 const ibmSerif = IBM_Plex_Serif({
   subsets: ['latin'],
@@ -27,21 +34,14 @@ const words = [
   }
 ];
 
-export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
+export default function LandingPage() {
   return (
     <>
       <div className="fixed top-0 left-0 w-full min-h-screen z-0">
         <StarsBackground />
       </div>
       <header className="absolute top-5 right-5 flex items-center gap-4">
-        {loggedIn ? (
-          <div className="flex items-center gap-2">
-            <Link prefetch={false} href="/feed/custom">
-              <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
-            </Link>
-            <SignOutButton />
-          </div>
-        ) : (
+        <SignedOut>
           <div className="flex items-center gap-2">
             <Link prefetch={false} href="/login">
               <Button variant="secondary"> Log in </Button> 
@@ -50,7 +50,17 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
               <Button> Sign up </Button>
             </Link>
           </div>
-        )}
+        </SignedOut>
+        <SignedIn>
+          <div className="flex items-center gap-2">
+            <Link prefetch={false} href="/feed/custom">
+              <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
+            </Link>
+            <ClerkSignOutButton>
+              <Button> Sign out </Button>
+            </ClerkSignOutButton>
+          </div>
+        </SignedIn>
         <ModeToggle />
       </header>
       <div className="flex flex-col justify-center items-center">
@@ -100,3 +110,24 @@ export default function LandingPage({ loggedIn }: { loggedIn: boolean }) {
             <p className="text-xl">view the lastest news from your favorite sources at one place</p>
             <p className="text-xl">follow specific topics</p>
   */
+
+/* 
+{loggedIn ? (
+          <div className="flex items-center gap-2">
+            <Link prefetch={false} href="/feed/custom">
+              <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
+            </Link>
+            <SignOutButton />
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link prefetch={false} href="/login">
+              <Button variant="secondary"> Log in </Button> 
+            </Link>
+            <Link prefetch={false} href="/signup">
+              <Button> Sign up </Button>
+            </Link>
+          </div>
+        )}
+
+*/
