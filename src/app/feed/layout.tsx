@@ -43,7 +43,7 @@ export default async function FeedLayout({children}: {children: React.ReactNode}
             <ModeToggle/>
           </div>
         </header>
-        <main className="flex items-center justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-screen">
+        <main className="flex items-center justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-[calc(100vh-theme(spacing.16))]">
           {children}
         </main>
       </SidebarInset>

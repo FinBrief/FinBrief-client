@@ -19,7 +19,8 @@ export function StickyScroll() {
             Discover up-to-the-minute financial news from around the globe, tailored to keep you informed on the latest shifts and developments in markets, industries, and economies.
           </p>
           <div>
-           <Image src='/images/latest-news.png' alt="Latest news" width={500} height={500} className="rounded-lg"/>
+           <Image 
+           src='/images/latest-news.png' alt="Latest news" width={500} height={500} className="rounded-lg border" />
           </div>
         </div>
       ),
@@ -33,7 +34,7 @@ export function StickyScroll() {
           </p>
           
           <div>
-            <Image src='/placeholder.png' alt="placeholder" width={500} height={500} /> 
+            <Image src='/images/summary.png' alt="Hourglass" width={500} height={500} className="rounded-lg border" /> 
           </div>
         </div>
       ),
@@ -46,7 +47,7 @@ export function StickyScroll() {
             Tailor your feed to match your interests. Whether you&apos;re into crypto, real estate, or global trade, FinBrief lets you follow the topics you&apos;re most passionate about, delivering a highly personalized experience.
           </p>
           <div>
-            <Image src='/placeholder.png' alt="placeholder" width={500} height={500} />
+            <Image src='/images/topics.png' alt="News topics" width={500} height={500} className="rounded-lg vignette border" /> 
           </div>
         </div>
       ),
@@ -59,7 +60,7 @@ export function StickyScroll() {
             Bookmark articles or summaries to revisit later. Save key insights or trending stories with a single click and keep them organized for easy access anytime.
           </p>
           <div>
-            <Image src='/images/bookmark.png' alt="bookmark posts" width={500} height={500} className="rounded-lg"/>
+            <Image src='/images/bookmark.png' alt="bookmark posts" width={500} height={500} className="rounded-lg border"/>
           </div>
         </div>
       ),

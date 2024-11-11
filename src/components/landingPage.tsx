@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { IBM_Plex_Serif } from "next/font/google";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,10 +9,8 @@ import { StickyScroll } from "./stickyScroll";
 import { TypewriterEffectSmooth } from "./ui/typewriter";
 import { StarsBackground } from "./ui/stars";
 import {
-  SignInButton,
   SignedIn,
   SignedOut,
-  UserButton,
   SignOutButton as ClerkSignOutButton
 } from '@clerk/nextjs'
 
