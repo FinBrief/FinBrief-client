@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -78,7 +80,7 @@ const ChatBot = () => {
       )}
 
       {isOpen && (
-        <Card className="w-full max-w-96 h-[30rem] flex flex-col shadow-xl">
+        <Card className="w-full md:w-96 h-[30rem] flex flex-col shadow-xl">
           {/* Header */}
           <div className="p-4 bg-blue-700 text-white rounded-t-lg flex justify-between items-center">
             <h3 className="font-semibold">Chat Support</h3>

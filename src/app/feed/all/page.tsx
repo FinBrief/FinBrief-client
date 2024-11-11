@@ -4,12 +4,12 @@ import Posts from "@/components/feed/posts";
 import { useBookmark } from "@/hooks/useBookmark";
 
 export default function AllFeedPage() {
-
-  const { data: bookmarkIds } = useBookmark();
+  const { data: bookmarks } = useBookmark();
+  const bookmarkIds = bookmarks?.map(bookmark => bookmark.id);
 
   return (
     <>
-      <Posts bookmarkIds={bookmarkIds} />     
+      <Posts bookmarkIds={bookmarkIds} tags={undefined}/>     
     </>
   );
 }

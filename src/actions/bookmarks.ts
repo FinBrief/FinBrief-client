@@ -17,8 +17,9 @@ export async function fetchUserBookmarks() {
       },
       select: {
         savedPosts: {
-          select: {
-            id: true
+          include: {
+            tags: true,
+            source: true
           }
         }
       }
@@ -30,7 +31,7 @@ export async function fetchUserBookmarks() {
     return bookmarks;
   } catch (error) {
     console.log(error);
-    return { error: "Failed to fetch bookmarks" };
+    return { error: "Failed to fetch user bookmarks" };
   }
 }
 

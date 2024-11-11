@@ -1,49 +1,19 @@
-"use client";
-
-import { ModeToggle } from "@/components/theme/mode-toggle"
 import ChatBot from "@/components/chatBot";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/feed/app-sidebar";
-import { EditFeedDialog } from "@/components/feed/editFeedDialog";
-import { usePathname } from "next/navigation";
+import FeedHeader from "@/components/feed/feedHeader";
 import { checkUser } from "@/actions/checkUser";
-import { useEffect } from "react";
-import { UserButton } from "@clerk/nextjs";
 
 export default async function FeedLayout({children}: {children: React.ReactNode}) {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    checkUser();
-  }, []);
+  const { error } = await checkUser();
+  console.log(error);
 
   return (
     <SidebarProvider>
       <AppSidebar/>
       <SidebarInset>
-        <header className="flex justify-between sticky bg-background top-0 h-16 shrink-0 items-center gap-2 border-b px-4">   
-          <div className="flex items-center gap-3">
-            <SidebarTrigger/> 
-            {pathname === "/feed/bookmarks" ? (             
-              <div className="flex items-center">
-                Bookmarks
-              </div>
-            ) : pathname === "/feed/all" ? (
-              <div className="flex items-center">
-                All posts
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <EditFeedDialog />
-              </div>
-            )}
-          </div>
-          <div className="flex items-center gap-4">
-            <UserButton />  
-            <ModeToggle/>
-          </div>
-        </header>
-        <main className="flex items-center justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-[calc(100vh-theme(spacing.16))]">
+        <FeedHeader/>
+        <main className="flex items-start justify-center overflow-y-auto px-4 md:px-6 pt-6 bg-background min-h-[calc(100vh-theme(spacing.16))]">
           {children}
         </main>
       </SidebarInset>

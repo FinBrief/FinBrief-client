@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -11,21 +13,9 @@ import {
   SidebarGroupAction,
   SidebarGroupContent
 } from "@/components/ui/sidebar"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
-import { ChevronsUpDown } from "lucide-react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useClerk } from '@clerk/nextjs'
 import { useUser } from "@clerk/nextjs";
-import { UserButton } from '@clerk/nextjs'
 
 const feedItems = [
   { name: "All posts", href: "/feed/all" },
@@ -36,7 +26,6 @@ const feedItems = [
 export function AppSidebar() {
   const pathname = usePathname();   
   const { isLoaded, isSignedIn, user } = useUser();
-  const { signOut } = useClerk()
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -62,7 +51,7 @@ export function AppSidebar() {
             {feedItems.map((item) => (
               <SidebarMenuItem key={item.name}>
                 <SidebarMenuButton asChild isActive={pathname === item.href}>
-                  <Link href={item.href}>
+                  <Link prefetch={false} href={item.href}>
                     <span>{item.name}</span>
                   </Link>
                 </SidebarMenuButton>
@@ -72,60 +61,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
       <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton
-                    size="lg"
-                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                  >
-                    <div className="rounded-full w-9 h-9 flex items-center justify-center bg-gray-600 text-white">
-                      {user.username?.[0].toUpperCase() || "U"}
-                    </div>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">
-                        {user.username || "User"}
-                      </span>
-                      <span className="truncate text-xs">
-                        {user.emailAddresses[0].emailAddress || "email@example.com"}
-                      </span>
-                    </div>
-                    <ChevronsUpDown className="ml-auto size-4" />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                  side="bottom"
-                  align="end"
-                  sideOffset={4}
-                >
-                  <DropdownMenuLabel className="p-0 font-normal">
-                    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">                    
-                      <div className="grid flex-1 text-left text-sm leading-tight gap-1">
-                        <span className="truncate font-semibold">
-                          {user.username || "User"}
-                        </span>
-                        <span className="truncate text-xs">
-                          {user.emailAddresses[0].emailAddress || "email@example.com"}
-                        </span>
-                      </div>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      Account
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => signOut({ redirectUrl: '/' })}>
-                    Sign out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="flex items-center gap-2 p-2">
+                <div className="rounded-full w-9 h-9 flex items-center justify-center bg-gray-600 text-white">
+                  {user.username?.[0].toUpperCase() || "U"}
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">
+                    {user.username || "User"}
+                  </span>
+                  <span className="truncate text-xs">
+                    {user.emailAddresses[0].emailAddress || "email@example.com"}
+                  </span>
+                </div>
+              </div>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

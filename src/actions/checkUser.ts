@@ -3,6 +3,8 @@
 import prisma from '@/utils/db/prisma'
 import { currentUser } from '@clerk/nextjs/server'
 
+//Function to create user in DB
+//could find a better flow
 export async function checkUser() {
   const user = await currentUser()
 
@@ -28,7 +30,7 @@ export async function checkUser() {
     return { error: null }
   }
 
-  return { error: null, user: userDB }
+  return { error: null }
 }
 
 //TODO: add error handling

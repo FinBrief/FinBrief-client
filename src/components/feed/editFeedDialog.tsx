@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -14,9 +15,11 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { SettingsIcon, CheckIcon } from "lucide-react"
 import { Tag } from "@/lib/types"
-import { setUserTags } from "@/actions/setUserTags"
+import { setUserTags } from "@/actions/userTags"
+import { toast } from "sonner"
+import { useTags } from "@/hooks/useTags"
 
-const tags = [
+const tagsData = [
   {id: "1", name: "Top News"},
   {id: "2", name: "World news"},
   {id: "3", name: "India news"},
@@ -38,6 +41,17 @@ const tags = [
 
 export function EditFeedDialog() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  
+  const queryClient = useQueryClient();
+  const { data: tags } = useTags();
+
+  useEffect(() => {
+    if (tags) {
+      setSelectedTags(tags);
+    }
+  }, [tags]);
 
   const onTagClick = (tag: Tag) => {
     setSelectedTags(prev => 
@@ -47,8 +61,22 @@ export function EditFeedDialog() {
     );
   };
 
+  const handleSave = async () => {
+    setIsPending(true);
+    const { error } = await setUserTags(selectedTags);
+    if (error) {
+      console.error(error);
+      toast.error("Failed to update tags");
+      return;
+    }
+    toast.success("Tags updated");
+    queryClient.setQueryData(["tags"], selectedTags);
+    setIsPending(false);
+    setIsOpen(false);
+  }
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary" aria-label="Edit Feed" className="px-2 font-bold text-lg "> 
           Edit feed 
@@ -63,7 +91,7 @@ export function EditFeedDialog() {
           </DialogDescription>  
         </DialogHeader>
         <div className="flex flex-wrap gap-3">
-          {tags.map((tag) => {
+          {tagsData.map((tag) => {
             let isSelected = selectedTags.some(t => t.id === tag.id);
             return (  
               <Badge 
@@ -73,13 +101,18 @@ export function EditFeedDialog() {
                 onClick={() => onTagClick(tag)}
               >
                 {isSelected && <CheckIcon className="w-4 h-4 mr-2 animate-in" />}
-                <div>{tag.name}</div>
+                {tag.name}
               </Badge>
             );
           })}
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={() => setUserTags(selectedTags)}>Save</Button>
+          <Button 
+            onClick={handleSave} 
+            disabled={isPending}
+          >
+            {isPending ? "Saving..." : "Save"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

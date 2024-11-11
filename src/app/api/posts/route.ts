@@ -4,10 +4,20 @@ import prisma from '@/utils/db/prisma'
 export async function GET(req: NextRequest, res: NextResponse) {
   try {  
     const searchParams = req.nextUrl.searchParams;
+    const tags = searchParams.get('tags')?.split(',') || undefined;
     const cursor = searchParams.get('cursor') || undefined;
     const limit = 30;
 
     const posts = await prisma.post.findMany({
+      where: {
+        ...(tags && tags.length > 0 && {
+          tags: {
+            some: {
+              id: { in: tags }
+            }
+          }
+        })
+      },
       orderBy: {
         pubDate: 'desc'
       },
