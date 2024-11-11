@@ -26,16 +26,16 @@ export default function PostDialog({children, post, isBookmark, handleSetBookmar
               {post.title} <ExternalLinkIcon className="w-4 h-4" />
             </a>
           </DialogTitle>
-          <DialogDescription className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1">
             {post.tags && post.tags.map((tag) => (
               <Badge variant="secondary" key={tag.name}>#{tag.name}</Badge>
             ))}  
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <div className="flex flex-col gap-2"> 
-          <div>
+          <DialogDescription>
             {post.summary}
-          </div>
+          </DialogDescription>
           <div className="text-sm text-gray-400 flex justify-between items-center mt-2">
             <div>
               {relativeTime(post.pubDate)}

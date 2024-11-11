@@ -11,8 +11,9 @@ import {
   SidebarMenuButton,
   SidebarGroupLabel,
   SidebarGroupAction,
-  SidebarGroupContent
-} from "@/components/ui/sidebar"
+  SidebarGroupContent,
+  useSidebar
+} from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
@@ -26,6 +27,9 @@ const feedItems = [
 export function AppSidebar() {
   const pathname = usePathname();   
   const { isLoaded, isSignedIn, user } = useUser();
+  const {
+    setOpenMobile
+  } = useSidebar()
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -50,7 +54,11 @@ export function AppSidebar() {
             <SidebarMenu>
             {feedItems.map((item) => (
               <SidebarMenuItem key={item.name}>
-                <SidebarMenuButton asChild isActive={pathname === item.href}>
+                <SidebarMenuButton 
+                  asChild 
+                  isActive={pathname === item.href}
+                  onClick={() => setOpenMobile(false)}
+                >
                   <Link prefetch={false} href={item.href}>
                     <span>{item.name}</span>
                   </Link>
