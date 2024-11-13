@@ -49,7 +49,7 @@ export default function LandingPage() {
         </SignedOut>
         <SignedIn>
           <div className="flex items-center gap-2">
-            <Link prefetch={false} href="/feed/custom">
+            <Link prefetch={false} href="/feed/all">
               <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
             </Link>
             <ClerkSignOutButton>
