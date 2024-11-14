@@ -10,7 +10,7 @@ export default function CustomFeedPage() {
 
   if (tags && tags.length === 0) {
     return (
-      <div className="flex flex-col gap-2 items-center justify-center h-screen">
+      <div className="flex flex-col gap-2 items-center justify-center h-full">
         <p className="text-lg font-semibold">No tags found</p>
         <p>Edit your feed to add tags and see those posts here.</p>
       </div>

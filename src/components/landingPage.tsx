@@ -49,7 +49,7 @@ export default function LandingPage() {
         </SignedOut>
         <SignedIn>
           <div className="flex items-center gap-2">
-            <Link prefetch={false} href="/feed/all">
+            <Link href="/feed/all">
               <Button variant="ghost" className="text-md underline"> Go to your feed </Button>
             </Link>
             <ClerkSignOutButton>
@@ -81,8 +81,13 @@ export default function LandingPage() {
           </p>
         </div>
         <div className="z-10">
-          <Link prefetch={false} href="/feed/custom">
-            <Button size="lg" variant="ghost" className="text-xl">Get started!</Button>
+          <Link href="/feed/all">
+            <button className="p-[3px] relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg" />
+              <div className="px-8 py-2 bg-background rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent">
+                Get started!
+              </div>
+            </button>
           </Link>
         </div>
         <Footer />
