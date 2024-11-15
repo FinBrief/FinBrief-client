@@ -15,4 +15,4 @@ jobs:
           SCRAPER_URL: ${{ secrets.SCRAPER_URL }}
           SCRAPER_TOKEN: ${{ secrets.SCRAPER_TOKEN }}
         run: |
-          curl -X POST $SCRAPER_URL -H "Authorization: Bearer $SCRAPER_TOKEN"
+          curl -X GET $SCRAPER_URL -H "Authorization: Bearer $SCRAPER_TOKEN"
