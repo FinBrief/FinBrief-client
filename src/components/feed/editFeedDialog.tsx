@@ -67,6 +67,7 @@ export function EditFeedDialog() {
     if (error) {
       console.error(error);
       toast.error("Failed to update tags");
+      setIsPending(false);
       return;
     }
     toast.success("Tags updated");

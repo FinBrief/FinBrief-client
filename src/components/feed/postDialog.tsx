@@ -13,7 +13,7 @@ import { Post } from "@/lib/types"
 import { ExternalLinkIcon } from "@radix-ui/react-icons"
 import { Bookmark } from "lucide-react"
 
-export default function PostDialog({children, post, isBookmark, handleSetBookmark, handleRemoveBookmark}:{children:React.ReactNode, post: Post, isBookmark: boolean, handleSetBookmark: () => void, handleRemoveBookmark: () => void}) { 
+export default function PostDialog({children, post, isBookmark, handleSetBookmark, handleRemoveBookmark, isPending}:{children:React.ReactNode, post: Post, isBookmark: boolean, handleSetBookmark: () => void, handleRemoveBookmark: () => void, isPending: boolean}) { 
   return (
     <Dialog>
       <DialogTrigger asChild className="hover:cursor-pointer">
@@ -33,7 +33,7 @@ export default function PostDialog({children, post, isBookmark, handleSetBookmar
           </div>
         </DialogHeader>
         <div className="flex flex-col gap-2"> 
-          <DialogDescription>
+          <DialogDescription className="text-base">
             {post.summary}
           </DialogDescription>
           <div className="text-sm text-gray-400 flex justify-between items-center mt-2">
@@ -42,12 +42,12 @@ export default function PostDialog({children, post, isBookmark, handleSetBookmar
             </div>
             <div>
               {isBookmark ? (
-                <Button variant="outline" onClick={handleRemoveBookmark}>
-                  Remove <Bookmark className="h-4 w-4 ml-1 text-blue-500 fill-blue-500" />
+                <Button variant="outline" onClick={handleRemoveBookmark} disabled={isPending}>
+                  {isPending ? 'Removing...' : 'Remove'} <Bookmark className="h-4 w-4 ml-1 text-blue-500 fill-blue-500" />
                 </Button>
               ) : (
-                <Button variant="outline" onClick={handleSetBookmark}>
-                  Add <Bookmark className="h-4 w-4 ml-1" />
+                <Button variant="outline" onClick={handleSetBookmark} disabled={isPending}>
+                  {isPending ? 'Adding...' : 'Add'} <Bookmark className="h-4 w-4 ml-1" />
                 </Button>
               )}
             </div>
