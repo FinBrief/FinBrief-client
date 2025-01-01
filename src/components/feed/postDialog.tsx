@@ -13,7 +13,7 @@ import { Post } from "@/lib/types"
 import { ExternalLinkIcon } from "@radix-ui/react-icons"
 import { Bookmark } from "lucide-react"
 
-export default function PostDialog({children, post, isBookmark, handleSetBookmark, handleRemoveBookmark, isPending}:{children:React.ReactNode, post: Post, isBookmark: boolean, handleSetBookmark: () => void, handleRemoveBookmark: () => void, isPending: boolean}) { 
+export default function PostDialog({children, post, isBookmark, handleSetBookmark, handleRemoveBookmark, isPending}:{children:React.ReactNode, post: Post, isBookmark: boolean, handleSetBookmark: (post: Post) => void, handleRemoveBookmark: (post: Post) => void, isPending: boolean}) { 
   return (
     <Dialog>
       <DialogTrigger asChild className="hover:cursor-pointer">
@@ -42,11 +42,11 @@ export default function PostDialog({children, post, isBookmark, handleSetBookmar
             </div>
             <div>
               {isBookmark ? (
-                <Button variant="outline" onClick={handleRemoveBookmark} disabled={isPending}>
+                <Button variant="outline" onClick={() => handleRemoveBookmark(post)} disabled={isPending}>
                   {isPending ? 'Removing...' : 'Remove'} <Bookmark className="h-4 w-4 ml-1 text-blue-500 fill-blue-500" />
                 </Button>
               ) : (
-                <Button variant="outline" onClick={handleSetBookmark} disabled={isPending}>
+                <Button variant="outline" onClick={() => handleSetBookmark(post)} disabled={isPending}>
                   {isPending ? 'Adding...' : 'Add'} <Bookmark className="h-4 w-4 ml-1" />
                 </Button>
               )}

@@ -5,8 +5,7 @@ import FeedHeader from "@/components/feed/feedHeader";
 import { checkUser } from "@/actions/checkUser";
 
 export default async function FeedLayout({children}: {children: React.ReactNode}) {
-  const { error } = await checkUser();
-  console.log(error);
+  checkUser();
 
   return (
     <SidebarProvider>

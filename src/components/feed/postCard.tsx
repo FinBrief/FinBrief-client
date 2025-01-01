@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 export function PostCard({ post, isBookmark, handleSetBookmark, handleRemoveBookmark, isPending }: { post: Post, isBookmark: boolean, handleSetBookmark: (post: Post) => void, handleRemoveBookmark: (post: Post) => void, isPending: boolean }) {
   return (
     <Card className="flex flex-col justify-between p-4 group">
-      <PostDialog post={post} isBookmark={isBookmark} handleSetBookmark={() => handleSetBookmark(post)} handleRemoveBookmark={() => handleRemoveBookmark(post)} isPending={isPending}>
+      <PostDialog post={post} isBookmark={isBookmark} handleSetBookmark={handleSetBookmark} handleRemoveBookmark={handleRemoveBookmark} isPending={isPending}>
         <div className="flex flex-col gap-2">
           <div className="font-bold text-lg leading-snug">{post.title}</div>
           <div className="flex flex-wrap gap-1">

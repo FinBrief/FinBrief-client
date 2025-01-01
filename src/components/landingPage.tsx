@@ -73,7 +73,9 @@ export default function LandingPage() {
             </h2>
           </div>
         </section>   
-        <StickyScroll />
+        <div>
+          <StickyScroll />
+        </div>
         <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
           <p className={`text-neutral-800 dark:text-neutral-300 text-sm md:text-xl max-w-2xl leading-relaxed text-center ${ibmSerif.className}`}>
             Stay ahead in the financial world with personalized news delivery, AI-powered summaries, 

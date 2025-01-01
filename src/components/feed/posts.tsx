@@ -35,7 +35,10 @@ export default function Posts({ bookmarkIds, tags }: { bookmarkIds: string[] | u
     queryKey: ['posts', tags],  
     queryFn: fetchPosts,
     initialPageParam: undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: 2
   });
 
   const { ref, inView } = useInView();
@@ -61,7 +64,7 @@ export default function Posts({ bookmarkIds, tags }: { bookmarkIds: string[] | u
         {data && data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.posts.map((post: Post) => (
-              <PostCard key={post.id} post={post} isBookmark={isBookmark(post.id)} isPending={isPending} handleSetBookmark={() => handleSetBookmark(post)} handleRemoveBookmark={() => handleRemoveBookmark(post)}/>
+              <PostCard key={post.id} post={post} isBookmark={isBookmark(post.id)} isPending={isPending} handleSetBookmark={handleSetBookmark} handleRemoveBookmark={handleRemoveBookmark}/>
             ))}
           </Fragment>
         ))}
