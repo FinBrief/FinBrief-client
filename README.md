@@ -28,8 +28,6 @@
    Create a `.env.local` file in the root directory and add the necessary environment variables:
 
    ```env
-    NEXT_PUBLIC_VULTR_API_KEY=your-vultr-api-key
-    
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your-clerk-api-key
     CLERK_SECRET_KEY=your-clerk-secret
     

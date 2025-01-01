@@ -16,7 +16,6 @@ export default async function FeedLayout({children}: {children: React.ReactNode}
           {children}
         </main>
       </SidebarInset>
-      <ChatBot/>
     </SidebarProvider> 
   )
 }
